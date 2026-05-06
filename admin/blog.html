@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — WoW Fiesta Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-page">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/logo.png" alt="WoW Logo" />
+      <span>WoW Admin</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">📊</span><span>Dashboard</span>
+      </a>
+      <a href="events.html" class="nav-item">
+        <span class="nav-icon">📅</span><span>Events</span>
+      </a>
+      <a href="registrations.html" class="nav-item">
+        <span class="nav-icon">🎟</span><span>Registrations</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼</span><span>Gallery</span>
+      </a>
+      <a href="blog.html" class="nav-item active">
+        <span class="nav-icon">✍️</span><span>Blog</span>
+      </a>
+      <a href="about.html" class="nav-item">
+        <span class="nav-icon">ℹ️</span><span>About</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="../index.html" class="nav-item" target="_blank">
+        <span class="nav-icon">🌐</span><span>View Site</span>
+      </a>
+      <button class="nav-item logout-btn" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span><span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h2 class="page-title">Blog Posts</h2>
+      <div class="topbar-right">
+        <button class="btn-primary-sm" onclick="openNewPost()">
+          + New Post
+        </button>
+      </div>
+    </div>
+
+    <!-- Post list -->
+    <div class="admin-section" id="posts-list-section">
+      <div class="posts-list" id="posts-list">
+        <p class="table-loading">Loading posts...</p>
+      </div>
+    </div>
+
+    <!-- Post editor — hidden by default -->
+    <div class="admin-section" id="post-editor"
+      style="display:none">
+      <div class="editor-header">
+        <h3 id="editor-title">New Post</h3>
+        <button class="btn-cancel"
+          onclick="closePostEditor()">
+          ← Back to posts
+        </button>
+      </div>
+
+      <input type="hidden" id="post-id" />
+
+      <div class="form-group">
+        <label>Post Title</label>
+        <input type="text" id="post-title"
+          placeholder="Enter post title" />
+      </div>
+
+      <div class="form-group">
+        <label>Cover Image URL</label>
+        <input type="text" id="post-cover"
+          placeholder="Paste image URL from Supabase Storage" />
+      </div>
+
+      <div class="form-group">
+        <label>Short Excerpt
+          <span class="label-hint">
+            shown on blog listing page
+          </span>
+        </label>
+        <textarea id="post-excerpt" rows="2"
+          placeholder="A short summary of the post">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Post Content</label>
+        <textarea id="post-content" rows="12"
+          placeholder="Write your full post content here...">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <select id="post-status">
+          <option value="draft">Draft — not visible to public</option>
+          <option value="published">Published — visible to public</option>
+        </select>
+      </div>
+
+      <div class="save-bar">
+        <button class="btn-save" onclick="savePost()">
+          Save Post
+        </button>
+        <span class="save-status" id="post-save-status"></span>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

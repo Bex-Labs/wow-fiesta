@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — WoW Fiesta Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/logo.png" alt="WoW Logo" />
+      <span>WoW Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item active">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="events.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Events</span>
+      </a>
+      <a href="registrations.html" class="nav-item">
+        <span class="nav-icon">🎟</span>
+        <span>Registrations</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼</span>
+        <span>Gallery</span>
+      </a>
+      <a href="blog.html" class="nav-item">
+        <span class="nav-icon">✍️</span>
+        <span>Blog</span>
+      </a>
+      <a href="about.html" class="nav-item">
+        <span class="nav-icon">ℹ️</span>
+        <span>About</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="../index.html" class="nav-item" target="_blank">
+        <span class="nav-icon">🌐</span>
+        <span>View Site</span>
+      </a>
+      <button class="nav-item logout-btn" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h2 class="page-title">Dashboard</h2>
+      <div class="topbar-right">
+        <span class="admin-badge">Admin</span>
+      </div>
+    </div>
+
+    <!-- Stats cards -->
+    <div class="stats-grid">
+      <div class="stat-card purple">
+        <div class="stat-icon">🎟</div>
+        <div class="stat-info">
+          <p class="stat-label">Total Registrations</p>
+          <h3 class="stat-value" id="stat-total">—</h3>
+        </div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <p class="stat-label">Total Revenue</p>
+          <h3 class="stat-value" id="stat-revenue">—</h3>
+        </div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">👶</div>
+        <div class="stat-info">
+          <p class="stat-label">Children Registered</p>
+          <h3 class="stat-value" id="stat-children">—</h3>
+        </div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-icon">👤</div>
+        <div class="stat-info">
+          <p class="stat-label">Adults Registered</p>
+          <h3 class="stat-value" id="stat-adults">—</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- City breakdown -->
+    <div class="admin-section">
+      <h3 class="section-heading">Registrations by City</h3>
+      <div class="city-grid" id="city-breakdown">
+        <div class="city-card">
+          <h4>Lagos</h4>
+          <p class="city-count" id="lagos-count">—</p>
+          <span>registrations</span>
+        </div>
+        <div class="city-card">
+          <h4>Ibadan</h4>
+          <p class="city-count" id="ibadan-count">—</p>
+          <span>registrations</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent registrations -->
+    <div class="admin-section">
+      <div class="section-header-row">
+        <h3 class="section-heading">Recent Registrations</h3>
+        <a href="registrations.html" class="btn-small">View All</a>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table" id="recent-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>City</th>
+              <th>Children</th>
+              <th>Adults</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="recent-tbody">
+            <tr>
+              <td colspan="7" class="table-loading">
+                Loading...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

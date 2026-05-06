@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WoW Children's Day Fiesta — 10th Anniversary. The most magical Children's Day celebration in Abuja. Register now!" />
+  <title>WoW Children's Day Fiesta — 10th Anniversary</title>
+  <!-- This stops the favicon 404 error -->
+<link rel="icon" href="assets/logo.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================
+    SECTION 1: TOP COUNTDOWN BANNER
+    The purple bar at the very top of the page
+    showing the live countdown to the event
+  ============================================ -->
+  <div class="countdown-banner">
+    <div class="countdown-inner">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-lbl">DAYS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-lbl">HOURS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-lbl">MINS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-lbl">SECS</span>
+      </div>
+    </div>
+    <p class="cd-tagline">✦ UNTIL THE MAGIC UNFOLDS ✦</p>
+  </div>
+
+
+  <!-- ============================================
+    SECTION 2: NAVBAR
+    Top navigation — logo, nav links, Book Now CTA
+  ============================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <img src="assets/logo.png" alt="WoW Fiesta Logo" class="logo-img" />
+      <span class="logo-text">WoW Fiesta</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#register" class="nav-link">Register</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+    </ul>
+    <button class="nav-book-btn" onclick="scrollToSection('register')">
+      Book Ticket
+    </button>
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#register" onclick="closeMenu()">Register</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+  </div>
+
+
+  <!-- ============================================
+    SECTION 3: HERO SECTION
+    Main visual block — title, description, CTAs,
+    hero image with FREE ENTRY badge and Book Now
+  ============================================ -->
+  <section class="hero" id="home">
+    <div class="hero-container">
+
+      <!-- Left side: text content -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span>✦ CELEBRATING CHILDHOOD WONDER</span>
+        </div>
+
+        <h1 class="hero-title">
+          Experience <br />the Magic!
+        </h1>
+
+        <p class="hero-desc">
+          Join us for an extraordinary day where imagination takes flight.
+          From giant inflatable castles to whimsical interactive storytelling,
+          every corner of WoW Fiesta is designed to spark joy and create
+          memories that last a lifetime.
+        </p>
+
+        <!-- Event details strip -->
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="meta-icon">📅</span>
+            <span>Saturday, June 7, 2025</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="meta-icon">⏰</span>
+            <span>10:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="meta-icon">📍</span>
+            <span>Abuja, Nigeria</span>
+          </div>
+        </div>
+
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="scrollToSection('register')">
+            Join the Fun
+          </button>
+          <button class="btn-outline" onclick="scrollToSection('highlights')">
+            View Schedule
+          </button>
+        </div>
+      </div>
+
+      <!-- Right side: hero image with overlaid badges -->
+      <div class="hero-image-wrap">
+        <!-- FREE ENTRY badge — top right of image -->
+        <div class="free-entry-badge">
+          <span>FREE</span>
+          <span>ENTRY</span>
+        </div>
+
+        <!-- Decorative stars -->
+        <span class="deco-star star-1">✦</span>
+        <span class="deco-star star-2">✦</span>
+
+        <!-- The hero image -->
+        <div class="hero-img-box">
+          <img
+            src="assets/images/hero-children.png"
+            alt="Happy children celebrating at WoW Fiesta"
+            class="hero-img"
+          />
+        </div>
+
+        <!-- BOOK NOW floating gold button -->
+        <button class="book-now-float" onclick="scrollToSection('register')">
+          🎟 BOOK NOW
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    SECTION 4: MAGICAL HIGHLIGHTS
+    3 cards showing the main event activities:
+    Wonder Workshops, Sparkle Stage, Adventure Zone
+  ============================================ -->
+  <section class="highlights" id="highlights">
+    <div class="section-container">
+      <h2 class="section-title">Magical Highlights</h2>
+      <p class="section-sub">
+        Three incredible zones packed with wonder, creativity and non-stop fun
+      </p>
+
+      <div class="highlights-grid">
+
+        <div class="highlight-card">
+          <div class="highlight-img-wrap">
+            <img src="assets/images/wonder-workshops.png" alt="Wonder Workshops" class="highlight-img" />
+          </div>
+          <h3 class="highlight-title">Wonder Workshops</h3>
+          <p class="highlight-desc">
+            Hands-on creative sessions where little ones paint, build and
+            invent to their heart's content.
+          </p>
+        </div>
+
+        <div class="highlight-card">
+          <div class="highlight-img-wrap">
+            <img src="assets/images/sparkle-stage.png" alt="Sparkle Stage" class="highlight-img" />
+          </div>
+          <h3 class="highlight-title">Sparkle Stage</h3>
+          <p class="highlight-desc">
+            Live performances, dance shows and storytelling that will
+            have every child on their feet.
+          </p>
+        </div>
+
+        <div class="highlight-card">
+          <div class="highlight-img-wrap">
+            <img src="assets/images/adventure-zone.png" alt="Adventure Zone" class="highlight-img" />
+          </div>
+          <h3 class="highlight-title">Adventure Zone</h3>
+          <p class="highlight-desc">
+            Giant inflatables, obstacle courses and outdoor games for
+            the thrill-seekers and explorers.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    SECTION 5: FUN FOR EVERYONE (ABOUT)
+    Left: text + bullet points   Right: image
+  ============================================ -->
+  <section class="about" id="about">
+    <div class="section-container about-container">
+
+      <!-- Left: text -->
+      <div class="about-text">
+        <h2 class="section-title left">Fun for Everyone</h2>
+        <p class="about-desc">
+          WoW Fiesta is a fully inclusive event designed so every child —
+          regardless of ability — can participate, explore and shine.
+          From the moment you arrive, our team ensures comfort, safety
+          and non-stop magic for the whole family.
+        </p>
+        <ul class="about-list">
+          <li>🏰 Bouncy castles &amp; giant inflatables</li>
+          <li>🎨 Face painting &amp; creative art stations</li>
+          <li>🎭 Live storytelling &amp; puppet shows</li>
+          <li>🍭 Food stalls, treats &amp; refreshments</li>
+          <li>📸 Professional photo booths &amp; memory zones</li>
+          <li>♿ Fully accessible for children with disabilities</li>
+        </ul>
+        <button class="btn-primary" onclick="scrollToSection('register')">
+          Secure Your Spot
+        </button>
+      </div>
+
+      <!-- Right: image -->
+      <div class="about-image-wrap">
+        <img
+          src="assets/images/fun-for-everyone.png"
+          alt="Children having fun at WoW Fiesta"
+          class="about-img"
+        />
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    SECTION 6: WHAT PARENTS SAY (TESTIMONIALS)
+    3 parent quote cards
+  ============================================ -->
+  <section class="testimonials">
+    <div class="section-container">
+      <h2 class="section-title">What Parents Say</h2>
+      <p class="section-sub">
+        Hear from families who experienced the magic at our last event
+      </p>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">
+            "The most amazing day out we have had as a family. My daughter
+            hasn't stopped talking about the Sparkle Stage performance.
+            We will definitely be back!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">TA</div>
+            <div>
+              <p class="author-name">Tolu Adeyemi</p>
+              <p class="author-role">Parent, Abuja</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">
+            "The American dream we always wanted for our children but right
+            here in Nigeria. Everything was well organised, safe and the
+            children were genuinely happy all day."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">KO</div>
+            <div>
+              <p class="author-name">Kemi Okafor</p>
+              <p class="author-role">Parent, Abuja</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">
+            "WoW Fiesta exceeded every expectation. My son who is usually
+            shy came alive at the Wonder Workshops. Pure magic from
+            start to finish."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ME</div>
+            <div>
+              <p class="author-name">Musa Ekpo</p>
+              <p class="author-role">Parent, Abuja</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    SECTION 7: GALLERY PREVIEW
+    Photo grid — 6 preview images
+    Full gallery on gallery.html
+  ============================================ -->
+  <section class="gallery" id="gallery">
+    <div class="section-container">
+      <h2 class="section-title">Moments from Last Year</h2>
+      <p class="section-sub">
+        A glimpse of the joy, colour and magic from WoW Fiesta 2024
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="assets/images/gallery-1.png" alt="Gallery photo 1" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-2.png" alt="Gallery photo 2" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-3.png" alt="Gallery photo 3" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-4.png" alt="Gallery photo 4" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-5.png" alt="Gallery photo 5" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-6.png" alt="Gallery photo 6" />
+        </div>
+      </div>
+
+      <div class="gallery-cta">
+        <a href="gallery.html" class="btn-outline">View Full Gallery</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    SECTION 8: JOIN THE MAGIC (REGISTRATION FORM)
+    Left: text + trust signals   Right: form
+    NOTE: Field says "Number of Children" NOT
+    "Number of Guests" — required for party favors
+  ============================================ -->
+  <section class="register" id="register">
+    <div class="section-container register-container">
+
+      <!-- Left: text -->
+      <div class="register-text">
+        <h2 class="register-heading">Join the Magic</h2>
+        <p class="register-sub">
+          Secure your spot at this year's most incredible Children's Day
+          celebration. Tickets are limited — don't miss out!
+        </p>
+        <ul class="register-perks">
+          <li>✓ Free entry for all children</li>
+          <li>✓ All activities included</li>
+          <li>✓ Family-friendly &amp; safe environment</li>
+          <li>✓ Booking confirmation sent instantly</li>
+        </ul>
+      </div>
+
+      <!-- Right: form -->
+      <div class="register-form-wrap">
+
+  <div class="register-form-card" id="register-form-card">
+
+  <!-- CITY SELECTOR -->
+  <div class="form-group">
+    <label for="city-select">Select Your City & Date</label>
+    <select id="city-select">
+      <option value="">— Select your city —</option>
+    </select>
+  </div>
+
+  <!-- FULL NAME -->
+  <div class="form-group">
+    <label for="full-name">Full Name</label>
+    <input
+      type="text"
+      id="full-name"
+      placeholder="Enter your full name"
+    />
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email address"
+    />
+  </div>
+
+  <!-- PHONE -->
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input
+      type="tel"
+      id="phone"
+      placeholder="e.g. 08012345678"
+    />
+  </div>
+
+  <!-- NUMBER OF CHILDREN — FREE -->
+  <div class="form-group">
+    <label for="num-children">
+      Number of Children / PWDs
+      <span class="label-badge free">FREE</span>
+    </label>
+    <input
+      type="number"
+      id="num-children"
+      min="0"
+      max="50"
+      value="0"
+      oninput="updatePriceSummary()"
+    />
+    <p class="field-hint">
+      Children and persons with disabilities enter free
+    </p>
+  </div>
+
+  <!-- NUMBER OF ADULTS — PRICE DEPENDS ON CITY -->
+  <div class="form-group">
+    <label for="num-adults">
+      Number of Adults
+      <span
+        class="adult-price-label hidden"
+        id="adult-price-label">
+      </span>
+    </label>
+    <input
+      type="number"
+      id="num-adults"
+      min="0"
+      max="20"
+      value="0"
+      oninput="updatePriceSummary()"
+    />
+    <p class="field-hint" id="adults-hint">
+      Select your city first to see the adult price
+    </p>
+  </div>
+
+  <!-- LIVE PRICE SUMMARY — shown dynamically -->
+  <div
+    id="price-summary"
+    class="price-summary"
+    style="display:none;">
+  </div>
+
+  <!-- PAYMENT METHOD -->
+  <div class="form-group">
+    <label>Pay With</label>
+    <div class="payment-options">
+      <label class="payment-option">
+        <input
+          type="radio"
+          name="payment"
+          value="paystack"
+          checked
+        />
+        <span class="pay-label">Paystack</span>
+      </label>
+      <label class="payment-option">
+        <input
+          type="radio"
+          name="payment"
+          value="flutterwave"
+        />
+        <span class="pay-label">Flutterwave</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <button
+    class="btn-register"
+    id="register-btn"
+    onclick="handleRegistration()">
+    Book Now — Secure My Spot
+  </button>
+
+  <p class="form-note">
+    🔒 Secure payment · Instant confirmation
+    · Kids &amp; PWDs always FREE
+  </p>
+
+</div>
+
+</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    FOOTER
+  ============================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-text">WoW Fiesta</span>
+        <p>Celebrating Childhood Wonder Since 2015</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#highlights">Schedule</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#register">Register</a>
+      </div>
+      <p class="footer-copy">© 2025 WoW Children's Day Fiesta. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================
+    MOBILE BOTTOM NAV BAR
+    Matches the Stitch design bottom navigation
+    Always visible on mobile screens
+  ============================================ -->
+  <nav class="bottom-nav">
+    <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
+      <span class="bnav-icon">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <a href="#gallery" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <span class="bnav-icon">🖼</span>
+      <span class="bnav-label">Gallery</span>
+    </a>
+    <a href="#register" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <span class="bnav-icon">🎟</span>
+      <span class="bnav-label">Register</span>
+    </a>
+    <a href="#about" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <span class="bnav-icon">ℹ</span>
+      <span class="bnav-label">About</span>
+    </a>
+  </nav>
+
+
+  <!-- JavaScript -->
+  <script src="js/supabase.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — WoW Fiesta Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-page">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/logo.png" alt="WoW Logo" />
+      <span>WoW Admin</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">📊</span><span>Dashboard</span>
+      </a>
+      <a href="events.html" class="nav-item">
+        <span class="nav-icon">📅</span><span>Events</span>
+      </a>
+      <a href="registrations.html" class="nav-item">
+        <span class="nav-icon">🎟</span><span>Registrations</span>
+      </a>
+      <a href="gallery.html" class="nav-item active">
+        <span class="nav-icon">🖼</span><span>Gallery</span>
+      </a>
+      <a href="blog.html" class="nav-item">
+        <span class="nav-icon">✍️</span><span>Blog</span>
+      </a>
+      <a href="about.html" class="nav-item">
+        <span class="nav-icon">ℹ️</span><span>About</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="../index.html" class="nav-item" target="_blank">
+        <span class="nav-icon">🌐</span><span>View Site</span>
+      </a>
+      <button class="nav-item logout-btn" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span><span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h2 class="page-title">Manage Gallery</h2>
+    </div>
+
+    <!-- Upload area -->
+    <div class="admin-section">
+      <h3 class="section-heading">Upload New Photo</h3>
+      <div class="upload-area" id="upload-area">
+        <input
+          type="file"
+          id="gallery-upload"
+          accept="image/*"
+          multiple
+          onchange="handleGalleryUpload(event)"
+          style="display:none"
+        />
+        <div class="upload-placeholder"
+          onclick="document.getElementById('gallery-upload').click()">
+          <span class="upload-icon">📸</span>
+          <p>Click to select photos</p>
+          <p class="upload-hint">
+            JPG or PNG · Multiple files allowed
+          </p>
+        </div>
+      </div>
+
+      <div class="upload-form" id="upload-form"
+        style="display:none">
+        <div class="form-group">
+          <label>Caption (optional)</label>
+          <input type="text" id="upload-caption"
+            placeholder="e.g. Children at WoW Fiesta Lagos" />
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <select id="upload-city">
+            <option value="Lagos">Lagos</option>
+            <option value="Ibadan">Ibadan</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div id="upload-preview" class="upload-preview"></div>
+        <button class="btn-save" id="upload-btn"
+          onclick="uploadGalleryPhoto()">
+          Upload Photo
+        </button>
+      </div>
+    </div>
+
+    <!-- Existing photos -->
+    <div class="admin-section">
+      <h3 class="section-heading">All Gallery Photos</h3>
+      <div class="gallery-admin-grid" id="gallery-admin-grid">
+        <p class="table-loading">Loading photos...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
