@@ -885,3 +885,185 @@ const fadeObserver = new IntersectionObserver(
 document.querySelectorAll('.fade-in-section').forEach(el => {
   fadeObserver.observe(el);
 });
+
+/* ============================================
+   GALLERY LIGHTBOX
+   Opens when any gallery image is clicked.
+   Supports keyboard navigation and swiping.
+============================================ */
+
+// Stores all current gallery images
+let lightboxImages  = [];
+let lightboxIndex   = 0;
+
+// Initialise lightbox on all gallery items
+function initLightbox() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  if (!galleryItems.length) return;
+
+  // Build the images array from all gallery items
+  lightboxImages = [];
+  galleryItems.forEach((item, index) => {
+    const img     = item.querySelector('img');
+    if (!img) return;
+
+    lightboxImages.push({
+      src:     img.src,
+      alt:     img.alt || 'WoW Fiesta photo',
+      caption: img.alt || ''
+    });
+
+    // Add click handler to each gallery item
+    item.addEventListener('click', () => {
+      openLightbox(index);
+    });
+  });
+}
+
+// Open the lightbox at a specific image index
+function openLightbox(index) {
+  if (!lightboxImages.length) return;
+
+  lightboxIndex = index;
+  updateLightboxImage();
+
+  const overlay = document.getElementById('lightbox');
+  overlay.classList.add('active');
+
+  // Prevent body from scrolling while lightbox is open
+  document.body.style.overflow = 'hidden';
+}
+
+// Close the lightbox
+function closeLightbox() {
+  const overlay = document.getElementById('lightbox');
+  overlay.classList.remove('active');
+
+  // Restore body scrolling
+  document.body.style.overflow = '';
+}
+
+// Navigate to previous or next image
+// direction: -1 for previous, +1 for next
+function lightboxNav(direction) {
+  lightboxIndex = lightboxIndex + direction;
+
+  // Wrap around — if past the last go to first
+  if (lightboxIndex >= lightboxImages.length) {
+    lightboxIndex = 0;
+  }
+
+  // Wrap around — if before the first go to last
+  if (lightboxIndex < 0) {
+    lightboxIndex = lightboxImages.length - 1;
+  }
+
+  updateLightboxImage();
+}
+
+// Update the lightbox to show the current image
+function updateLightboxImage() {
+  const img     = document.getElementById('lightbox-img');
+  const caption = document.getElementById('lightbox-caption');
+  const counter = document.getElementById('lightbox-counter');
+  const prev    = document.getElementById('lightbox-prev');
+  const next    = document.getElementById('lightbox-next');
+
+  if (!img) return;
+
+  const current = lightboxImages[lightboxIndex];
+  if (!current)  return;
+
+  // Fade out then update then fade back in
+  img.style.opacity   = '0';
+  img.style.transform = 'scale(0.92)';
+
+  setTimeout(() => {
+    img.src             = current.src;
+    img.alt             = current.alt;
+    img.style.opacity   = '1';
+    img.style.transform = 'scale(1)';
+    img.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+  }, 180);
+
+  // Update caption
+  if (caption) {
+    caption.textContent = current.caption || '';
+  }
+
+  // Update counter — e.g. "2 / 6"
+  if (counter) {
+    counter.textContent =
+      `${lightboxIndex + 1} / ${lightboxImages.length}`;
+  }
+
+  // Hide arrows if only one image
+  if (lightboxImages.length <= 1) {
+    if (prev) prev.classList.add('hidden');
+    if (next) next.classList.add('hidden');
+  } else {
+    if (prev) prev.classList.remove('hidden');
+    if (next) next.classList.remove('hidden');
+  }
+}
+
+// Close lightbox when clicking the dark overlay
+document.getElementById('lightbox')
+  ?.addEventListener('click', function (e) {
+    if (e.target === this) closeLightbox();
+  });
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  const overlay = document.getElementById('lightbox');
+  if (!overlay?.classList.contains('active')) return;
+
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX   = 0;
+
+document.getElementById('lightbox')
+  ?.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+document.getElementById('lightbox')
+  ?.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+
+    // Swipe left — go to next
+    if (diff > 50)  lightboxNav(1);
+
+    // Swipe right — go to previous
+    if (diff < -50) lightboxNav(-1);
+  }, { passive: true });
+
+
+// ── Re-initialise lightbox after Supabase
+//    loads gallery images dynamically ──
+// This ensures click handlers are attached
+// to dynamically loaded images too
+
+const originalLoadGallery = window.loadGalleryPreview;
+
+// Watch for when gallery grid gets populated
+const galleryGrid = document.querySelector('.gallery-grid');
+if (galleryGrid) {
+  const galleryObserver = new MutationObserver(() => {
+    initLightbox();
+  });
+  galleryObserver.observe(galleryGrid, {
+    childList: true
+  });
+}
+
+// Also run on page load for local images
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initLightbox, 500);
+});

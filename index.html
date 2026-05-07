@@ -583,6 +583,49 @@
     </a>
   </nav>
 
+  <!-- ============================================
+    GALLERY LIGHTBOX
+    Shown when a gallery photo is clicked
+  ============================================ -->
+  <div class="lightbox-overlay" id="lightbox">
+
+    <!-- Close button -->
+    <button class="lightbox-close"
+      onclick="closeLightbox()"
+      aria-label="Close">
+      ✕
+    </button>
+
+    <!-- Previous arrow -->
+    <button class="lightbox-prev"
+      id="lightbox-prev"
+      onclick="lightboxNav(-1)"
+      aria-label="Previous photo">
+      ‹
+    </button>
+
+    <!-- Image container -->
+    <div class="lightbox-img-wrap"
+      onclick="event.stopPropagation()">
+      <img
+        src=""
+        alt=""
+        class="lightbox-img"
+        id="lightbox-img"
+      />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <p class="lightbox-counter" id="lightbox-counter"></p>
+    </div>
+
+    <!-- Next arrow -->
+    <button class="lightbox-next"
+      id="lightbox-next"
+      onclick="lightboxNav(1)"
+      aria-label="Next photo">
+      ›
+    </button>
+
+  </div>
 
   <!-- JavaScript -->
   <script src="js/supabase.js"></script>
