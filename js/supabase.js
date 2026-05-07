@@ -130,8 +130,8 @@ async function loadEvents() {
     // Fill the city dropdown in the form
     populateCitySelector(data);
 
-    // Update the hero meta strip
-    updateHeroMeta(firstEvent);
+    // Update hero to show ALL events
+    updateHeroMeta(data);
 
     console.log(
       '✓ Events loaded:',
@@ -274,23 +274,39 @@ function updatePriceSummary() {
    Updates the date, time and venue text
    in the hero section from Supabase data
 ============================================ */
-function updateHeroMeta(event) {
-  const dateObj = new Date(
-    event.event_date + 'T00:00:00'
-  );
-  const formatted = dateObj.toLocaleDateString('en-NG', {
-    weekday: 'long',
-    day:     'numeric',
-    month:   'long',
-    year:    'numeric'
-  });
+function updateHeroMeta(events) {
+  const container = document.getElementById('event-cities');
+  if (!container) return;
 
-  const metaItems = document.querySelectorAll(
-    '.hero-meta-item span:last-child'
-  );
-  if (metaItems[0]) metaItems[0].textContent = formatted;
-  if (metaItems[1]) metaItems[1].textContent = event.event_time;
-  if (metaItems[2]) metaItems[2].textContent = event.venue_name;
+  // Handle both a single event object and an array
+  const eventList = Array.isArray(events) ? events : [events];
+
+  container.innerHTML = eventList.map(event => {
+    const dateObj   = new Date(event.event_date + 'T00:00:00');
+    const formatted = dateObj.toLocaleDateString('en-NG', {
+      weekday: 'long',
+      day:     'numeric',
+      month:   'long',
+      year:    'numeric'
+    });
+
+    return `
+      <div class="event-date-row">
+        <span class="event-dot"></span>
+        <div class="event-date-info">
+          <span class="event-city-label">
+            ${event.city}
+          </span>
+          <span class="event-date-text">
+            ${formatted}
+          </span>
+          <span class="event-venue-text">
+            ${event.venue_name}
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 

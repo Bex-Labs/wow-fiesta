@@ -398,28 +398,6 @@ button {
   margin-bottom: 28px;
   max-width: 480px;
 }
-
-.hero-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 32px;
-}
-
-.hero-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-body);
-}
-
-.meta-icon {
-  font-size: 16px;
-  width: 28px;
-}
-
 .hero-btns {
   display: flex;
   gap: 16px;
@@ -1304,4 +1282,77 @@ img[src*="assets/images/"] {
 .label-badge.paid {
   background: var(--purple-light);
   color: var(--purple);
+}
+
+/* ============================================
+   EVENT DATES STRIP
+   Shows both Lagos and Ibadan dates
+   clearly in the hero section
+============================================ */
+.event-dates-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.event-date-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--purple-pale);
+  border: 1.5px solid var(--purple-light);
+  border-left: 4px solid var(--purple);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  transition: var(--transition);
+}
+
+.event-date-row:hover {
+  border-left-color: var(--gold);
+  background: var(--purple-light);
+}
+
+.event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--purple);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.event-date-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.event-city-label {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--purple);
+  line-height: 1.2;
+}
+
+.event-date-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.event-venue-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .event-dates-strip {
+    max-width: 100%;
+  }
+  .event-date-row {
+    padding: 10px 14px;
+  }
 }
