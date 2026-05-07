@@ -155,11 +155,15 @@ button {
 ============================================ */
 .countdown-banner {
   background: var(--purple);
-  padding: 16px 24px 12px;
+  padding: 12px 24px 14px;
   text-align: center;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  width: 100%;
+  height: 90px;
 }
 
 .countdown-inner {
@@ -213,16 +217,20 @@ button {
    SECTION 2: NAVBAR
 ============================================ */
 .navbar {
-  position: sticky;
-  top: 74px;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  right: 0;
   z-index: 999;
   background: var(--white);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 40px;
-  border-bottom: 1px solid rgba(91,45,142,0.1);
-  box-shadow: var(--shadow-sm);
+  padding: 20px 40px;
+  border-bottom: 2px solid rgba(91,45,142,0.12);
+  box-shadow: 0 2px 12px rgba(91,45,142,0.1);
+  width: 100%;
+  min-height: 72px;
 }
 
 .nav-logo {
@@ -232,13 +240,13 @@ button {
 }
 
 .logo-img {
-  height: 38px;
+  height: 44px;
   width: auto;
 }
 
 .logo-text {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 26px;
   color: var(--purple);
   letter-spacing: 0.5px;
 }
@@ -246,12 +254,12 @@ button {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 36px;
 }
 
 .nav-link {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text-body);
   transition: var(--transition);
   position: relative;
@@ -282,9 +290,9 @@ button {
 .nav-book-btn {
   background: var(--gold);
   color: var(--dark);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border-radius: var(--radius-full);
   transition: var(--transition);
 }
@@ -349,7 +357,7 @@ button {
 ============================================ */
 .hero {
   background: var(--white);
-  padding: 60px 40px 40px;
+  padding: 200px 40px 40px;
 }
 
 .hero-container {
@@ -1057,8 +1065,9 @@ button {
 
   /* Navbar */
   .navbar {
-    padding: 14px 20px;
-    top: 68px;
+    padding: 16px 20px;
+    top: 82px;
+    min-height: 64px;
   }
 
   .nav-links,
@@ -1072,7 +1081,7 @@ button {
 
   /* Hero */
   .hero {
-    padding: 40px 20px 60px;
+    padding: 170px 20px 60px;
   }
 
   .hero-container {
