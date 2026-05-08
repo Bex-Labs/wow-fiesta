@@ -23,9 +23,7 @@
    Replace these with your actual keys from
    paystack.com and flutterwave.com
 ============================================ */
-const PAYSTACK_PUBLIC_KEY    = 'pk_test_7ac40f40ef3c4ebcd8caa3dab926e33f73b940b8';
-const FLUTTERWAVE_PUBLIC_KEY = 'FLWPUBK_TEST-9d8817b21650524a7bdf66098f3c71e4-X';
-
+const PAYSTACK_PUBLIC_KEY    = 'pk_test_da61808dbf2ddb885bc7a88ff6f56fa22e614d2b';
 
 /* ============================================
    1. COUNTDOWN TIMER
@@ -364,61 +362,6 @@ function payWithPaystack(formData) {
   handler.openIframe();
 }
 
-
-/* ============================================
-   10. FLUTTERWAVE PAYMENT
-   Opens the Flutterwave popup.
-   Amount is in NAIRA directly.
-   
-   To activate:
-   1. Go to flutterwave.com → create account
-   2. Settings → API Keys
-   3. Copy your Test Public Key
-   4. Replace YOUR_FLUTTERWAVE_PUBLIC_KEY above
-============================================ */
-function payWithFlutterwave(formData) {
-  const amount = window.currentTotal || 0;
-
-  FlutterwaveCheckout({
-    public_key:      FLUTTERWAVE_PUBLIC_KEY,
-    tx_ref:          formData.bookingRef,
-    amount:          amount,
-    currency:        'NGN',
-    payment_options: 'card, banktransfer, ussd',
-    customer: {
-      email:        formData.email,
-      phone_number: formData.phone,
-      name:         formData.fullName
-    },
-    meta: {
-      city:         formData.city,
-      num_children: formData.numChildren,
-      num_adults:   formData.numAdults
-    },
-    customizations: {
-      title:       "WoW Children's Day Fiesta",
-      description: `${formData.city} — ${formData.numAdults} adult(s)`,
-      logo:        'assets/logo.png'
-    },
-    callback: function (response) {
-      console.log('✓ Flutterwave payment success:', response);
-      onPaymentSuccess(
-        formData,
-        'flutterwave',
-        response.transaction_id
-      );
-    },
-    onclose: function () {
-      resetRegisterButton();
-      showToast(
-        'Payment cancelled. Your details are still saved.',
-        'info'
-      );
-    }
-  });
-}
-
-
 /* ============================================
    11. MAIN REGISTRATION HANDLER
    Called when Book Now button is clicked.
@@ -448,9 +391,7 @@ function handleRegistration() {
                    ) || 0,
     totalAmount:   window.currentTotal                || 0,
     bookingRef:    generateBookingRef(),
-    paymentMethod: document.querySelector(
-                     'input[name="payment"]:checked'
-                   ).value
+    paymentMethod: 'paystack'
   };
 
   // Step 3: If no adults — registration is free
@@ -465,14 +406,9 @@ function handleRegistration() {
   btn.textContent = 'Processing...';
   btn.disabled    = true;
 
-  // Step 5: Trigger the chosen payment gateway
-  if (formData.paymentMethod === 'paystack') {
-    payWithPaystack(formData);
-  } else {
-    payWithFlutterwave(formData);
-  }
+  // Step 5: Trigger Paystack
+  payWithPaystack(formData);
 }
-
 
 /* ============================================
    12. FREE REGISTRATION HANDLER
@@ -808,17 +744,6 @@ function loadPaystackScript() {
   document.head.appendChild(script);
 }
 
-function loadFlutterwaveScript() {
-  if (flutterwaveLoaded) return;
-  const script  = document.createElement('script');
-  script.src    = 'https://checkout.flutterwave.com/v3.js';
-  script.onload = () => {
-    flutterwaveLoaded = true;
-    console.log('✓ Flutterwave script loaded');
-  };
-  document.head.appendChild(script);
-}
-
 const registerSection = document.getElementById('register');
 if (registerSection) {
   const paymentObserver = new IntersectionObserver(
@@ -826,7 +751,6 @@ if (registerSection) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           loadPaystackScript();
-          loadFlutterwaveScript();
           paymentObserver.unobserve(entry.target);
         }
       });
@@ -835,7 +759,6 @@ if (registerSection) {
   );
   paymentObserver.observe(registerSection);
 }
-
 
 /* ============================================
    17. FADE-IN ANIMATIONS ON SCROLL

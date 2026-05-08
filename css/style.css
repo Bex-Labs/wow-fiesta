@@ -878,6 +878,20 @@ button {
   font-size: 14px;
   font-weight: 700;
 }
+.payment-single {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1.5px solid var(--purple-light);
+  border-radius: var(--radius-sm);
+  background: var(--purple-pale);
+}
+
+.pay-single-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--purple);
+}
 
 /* Register button */
 .btn-register {
