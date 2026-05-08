@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WoW Children's Day Fiesta After Party — Post-event activities, celebrations and what happens after the magic." />
+  <title>After Party — WoW Children's Day Fiesta</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/after-party.css" />
+</head>
+<body>
+
+  <!-- COUNTDOWN BANNER -->
+  <div class="countdown-banner">
+    <div class="countdown-inner">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-lbl">DAYS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-lbl">HOURS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-lbl">MINS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-lbl">SECS</span>
+      </div>
+    </div>
+    <p class="cd-tagline">✦ UNTIL THE MAGIC UNFOLDS ✦</p>
+  </div>
+
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img src="assets/logo.png"
+          alt="WoW Fiesta Logo" class="logo-img" />
+      </a>
+      <a href="index.html">
+        <span class="logo-text">WoW Fiesta</span>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="index.html#register" class="nav-link">Register</a></li>
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="after-party.html" class="nav-link active">After Party</a></li>
+    </ul>
+    <button class="nav-book-btn"
+      onclick="window.location.href='index.html#register'">
+      Book Ticket
+    </button>
+    <button class="hamburger" id="hamburger"
+      onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="gallery.html" onclick="closeMenu()">Gallery</a>
+    <a href="index.html#register" onclick="closeMenu()">Register</a>
+    <a href="index.html#about" onclick="closeMenu()">About</a>
+    <a href="after-party.html" onclick="closeMenu()">After Party</a>
+  </div>
+
+
+  <!-- ============================================
+    HERO SECTION
+  ============================================ -->
+  <section class="ap-hero">
+    <div class="ap-hero-content">
+      <div class="hero-badge">
+        <span>✦ THE CELEBRATION CONTINUES</span>
+      </div>
+      <h1 class="ap-hero-title">
+        The After Party 🎉
+      </h1>
+      <p class="ap-hero-sub">
+        The main event is just the beginning. After the magic
+        wraps up, the celebration continues with exciting
+        post-event activities for children and families.
+      </p>
+      <button class="btn-primary"
+        onclick="window.location.href='index.html#register'">
+        Register for the Main Event
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    WHAT HAPPENS AFTER
+  ============================================ -->
+  <section class="ap-section">
+    <div class="ap-container">
+      <h2 class="ap-section-title">
+        What Happens After the Magic?
+      </h2>
+      <p class="ap-section-sub">
+        Once the main event wraps up, we keep the energy
+        going with a series of post-event activities
+        designed to send every child home with a smile.
+      </p>
+
+      <div class="ap-activities-grid">
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">🎨</div>
+          <h3>Creative Wind-Down</h3>
+          <p>
+            Children gather for a relaxed art session —
+            painting, colouring and creating their own
+            WoW Fiesta memory scrapbook to take home.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 4:30 PM – 5:30 PM</span>
+          </div>
+        </div>
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">🏆</div>
+          <h3>Awards & Recognition</h3>
+          <p>
+            We celebrate our star performers, most
+            enthusiastic participants and community
+            champions with certificates and prizes.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 5:00 PM – 5:30 PM</span>
+          </div>
+        </div>
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">📸</div>
+          <h3>Family Photo Session</h3>
+          <p>
+            Our professional photographers set up special
+            themed photo stations for families to capture
+            their favourite memories from the day.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 4:00 PM – 6:00 PM</span>
+          </div>
+        </div>
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">🍰</div>
+          <h3>Cake Cutting Ceremony</h3>
+          <p>
+            We celebrate 10 years of WoW Fiesta with a
+            special anniversary cake cutting — a sweet
+            moment for everyone to share together.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 5:30 PM – 6:00 PM</span>
+          </div>
+        </div>
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">🎁</div>
+          <h3>Goodie Bag Distribution</h3>
+          <p>
+            Every child receives a special WoW Fiesta
+            goodie bag packed with surprises, treats
+            and educational materials to take home.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 5:45 PM – 6:00 PM</span>
+          </div>
+        </div>
+
+        <div class="ap-activity-card">
+          <div class="ap-activity-icon">🎵</div>
+          <h3>Final Jam Session</h3>
+          <p>
+            We close the day with an energetic final
+            performance — dancing, singing and a send-off
+            celebration that the whole family will love.
+          </p>
+          <div class="ap-activity-meta">
+            <span>⏰ 5:30 PM – 6:00 PM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    TIMELINE SECTION
+  ============================================ -->
+  <section class="ap-timeline-section">
+    <div class="ap-container">
+      <h2 class="ap-section-title">
+        After Party Timeline
+      </h2>
+      <p class="ap-section-sub">
+        Here is how the final hours of WoW Fiesta
+        will unfold — city by city
+      </p>
+
+      <div class="ap-cities-timeline">
+
+        <!-- Lagos Timeline -->
+        <div class="ap-city-timeline">
+          <div class="ap-city-badge lagos">
+            📍 Lagos · 27 May 2026
+          </div>
+          <div class="ap-timeline">
+            <div class="ap-timeline-item">
+              <div class="ap-time">4:00 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Main Event Wraps Up</h4>
+                <p>Activities wind down and families begin gathering</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">4:30 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Creative Wind-Down & Photo Session</h4>
+                <p>Art stations open and photo booths in full swing</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:00 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Awards & Recognition Ceremony</h4>
+                <p>Celebrating our star children and community champions</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:30 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Anniversary Cake Cutting</h4>
+                <p>10 years of WoW Fiesta — a sweet celebration moment</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:45 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Goodie Bags & Final Jam</h4>
+                <p>Every child gets their bag — then we close with a bang!</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item final">
+              <div class="ap-time">6:00 PM</div>
+              <div class="ap-timeline-dot gold"></div>
+              <div class="ap-timeline-content">
+                <h4>🎉 Event Closes</h4>
+                <p>See you next year at WoW Fiesta 2027!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ibadan Timeline -->
+        <div class="ap-city-timeline">
+          <div class="ap-city-badge ibadan">
+            📍 Ibadan · 30 May 2026
+          </div>
+          <div class="ap-timeline">
+            <div class="ap-timeline-item">
+              <div class="ap-time">4:00 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Main Event Wraps Up</h4>
+                <p>Activities wind down and families begin gathering</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">4:30 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Creative Wind-Down & Photo Session</h4>
+                <p>Art stations open and photo booths in full swing</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:00 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Awards & Recognition Ceremony</h4>
+                <p>Celebrating our star children and community champions</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:30 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Anniversary Cake Cutting</h4>
+                <p>10 years of WoW Fiesta — a sweet celebration moment</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item">
+              <div class="ap-time">5:45 PM</div>
+              <div class="ap-timeline-dot"></div>
+              <div class="ap-timeline-content">
+                <h4>Goodie Bags & Final Jam</h4>
+                <p>Every child gets their bag — then we close with a bang!</p>
+              </div>
+            </div>
+            <div class="ap-timeline-item final">
+              <div class="ap-time">6:00 PM</div>
+              <div class="ap-timeline-dot gold"></div>
+              <div class="ap-timeline-content">
+                <h4>🎉 Event Closes</h4>
+                <p>See you next year at WoW Fiesta 2027!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    CTA SECTION
+  ============================================ -->
+  <section class="ap-cta-section">
+    <div class="ap-container ap-cta-inner">
+      <h2>Don't Miss the Full Experience</h2>
+      <p>
+        Register now to secure your spot for both the
+        main event and the after party activities.
+        Remember — kids and PWDs get in free!
+      </p>
+      <div class="ap-cta-buttons">
+        <button class="btn-primary"
+          onclick="window.location.href='index.html#register'">
+          🎟 Register Now
+        </button>
+        <button class="btn-outline"
+          onclick="window.location.href='gallery.html'">
+          View Gallery
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-text">WoW Fiesta</span>
+        <p>Celebrating Childhood Wonder Since 2015</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="after-party.html">After Party</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#register">Register</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 WoW Children's Day Fiesta.
+        All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- MOBILE BOTTOM NAV — no After Party here -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="bnav-icon">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <a href="gallery.html" class="bottom-nav-item">
+      <span class="bnav-icon">🖼</span>
+      <span class="bnav-label">Gallery</span>
+    </a>
+    <a href="index.html#register" class="bottom-nav-item">
+      <span class="bnav-icon">🎟</span>
+      <span class="bnav-label">Register</span>
+    </a>
+    <a href="index.html#about" class="bottom-nav-item">
+      <span class="bnav-icon">ℹ</span>
+      <span class="bnav-label">About</span>
+    </a>
+  </nav>
+
+  <script src="js/after-party.js"></script>
+
+</body>
+</html>
