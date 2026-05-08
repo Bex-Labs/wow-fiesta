@@ -767,10 +767,10 @@ button {
 }
 
 .register-sub {
-  font-size: 16px;
-  color: rgba(255,255,255,0.8);
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
   line-height: 1.8;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 
 .register-perks {
@@ -1282,6 +1282,13 @@ img[src*="assets/images/"] {
 .label-badge.paid {
   background: var(--purple-light);
   color: var(--purple);
+}
+.register-perks-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
 }
 
 /* ============================================
