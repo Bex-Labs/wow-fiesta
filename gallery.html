@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WoW Children's Day Fiesta Gallery — Moments of joy, colour and magic from past events." />
+  <title>Gallery — WoW Children's Day Fiesta</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/gallery.css" />
+</head>
+<body>
+
+  <!-- ============================================
+    COUNTDOWN BANNER
+  ============================================ -->
+  <div class="countdown-banner">
+    <div class="countdown-inner">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-lbl">DAYS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-lbl">HOURS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-lbl">MINS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-lbl">SECS</span>
+      </div>
+    </div>
+    <p class="cd-tagline">✦ UNTIL THE MAGIC UNFOLDS ✦</p>
+  </div>
+
+
+  <!-- ============================================
+    NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img src="assets/logo.png"
+          alt="WoW Fiesta Logo" class="logo-img" />
+      </a>
+      <a href="index.html">
+        <span class="logo-text">WoW Fiesta</span>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+      <li><a href="index.html#register" class="nav-link">Register</a></li>
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+    </ul>
+    <button class="nav-book-btn"
+      onclick="window.location.href='index.html#register'">
+      Book Ticket
+    </button>
+    <button class="hamburger" id="hamburger"
+      onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="gallery.html" onclick="closeMenu()">Gallery</a>
+    <a href="index.html#register" onclick="closeMenu()">Register</a>
+    <a href="index.html#about" onclick="closeMenu()">About</a>
+  </div>
+
+
+  <!-- ============================================
+    GALLERY HERO
+  ============================================ -->
+  <section class="gallery-hero">
+    <div class="gallery-hero-content">
+      <div class="hero-badge">
+        <span>✦ MEMORIES &amp; MOMENTS</span>
+      </div>
+      <h1 class="gallery-hero-title">
+        The Magic in Pictures
+      </h1>
+      <p class="gallery-hero-sub">
+        Relive the joy, colour and wonder from past
+        editions of WoW Children's Day Fiesta
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    FILTER TABS
+  ============================================ -->
+  <div class="gallery-filters" id="gallery-filters">
+    <button class="filter-tab active"
+      data-filter="all"
+      onclick="filterGallery('all', this)">
+      All Photos
+    </button>
+    <button class="filter-tab"
+      data-filter="Lagos"
+      onclick="filterGallery('Lagos', this)">
+      Lagos
+    </button>
+    <button class="filter-tab"
+      data-filter="Ibadan"
+      onclick="filterGallery('Ibadan', this)">
+      Ibadan
+    </button>
+    <button class="filter-tab"
+      data-filter="General"
+      onclick="filterGallery('General', this)">
+      General
+    </button>
+  </div>
+
+
+  <!-- ============================================
+    GALLERY GRID
+  ============================================ -->
+  <section class="gallery-page-section">
+    <div class="gallery-page-container">
+
+      <!-- Loading state -->
+      <div class="gallery-loading" id="gallery-loading">
+        <div class="loading-spinner"></div>
+        <p>Loading photos...</p>
+      </div>
+
+      <!-- Empty state -->
+      <div class="gallery-empty" id="gallery-empty"
+        style="display:none">
+        <p class="empty-icon">📷</p>
+        <p class="empty-text">No photos found</p>
+        <p class="empty-sub">
+          Check back soon — more photos coming!
+        </p>
+      </div>
+
+      <!-- Photo grid -->
+      <div class="gallery-page-grid" id="gallery-page-grid">
+      </div>
+
+      <!-- Load more button -->
+      <div class="load-more-wrap" id="load-more-wrap"
+        style="display:none">
+        <button class="btn-load-more" onclick="loadMorePhotos()">
+          Load More Photos
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+    FOOTER
+  ============================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-text">WoW Fiesta</span>
+        <p>Celebrating Childhood Wonder Since 2015</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#register">Register</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 WoW Children's Day Fiesta.
+        All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================
+    MOBILE BOTTOM NAV
+  ============================================ -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="bnav-icon">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <a href="gallery.html" class="bottom-nav-item active">
+      <span class="bnav-icon">🖼</span>
+      <span class="bnav-label">Gallery</span>
+    </a>
+    <a href="index.html#register" class="bottom-nav-item">
+      <span class="bnav-icon">🎟</span>
+      <span class="bnav-label">Register</span>
+    </a>
+    <a href="index.html#about" class="bottom-nav-item">
+      <span class="bnav-icon">ℹ</span>
+      <span class="bnav-label">About</span>
+    </a>
+  </nav>
+
+
+  <!-- ============================================
+    LIGHTBOX
+  ============================================ -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close"
+      onclick="closeLightbox()"
+      aria-label="Close">✕</button>
+    <button class="lightbox-prev"
+      id="lightbox-prev"
+      onclick="lightboxNav(-1)"
+      aria-label="Previous">‹</button>
+    <div class="lightbox-img-wrap"
+      onclick="event.stopPropagation()">
+      <img src="" alt="" class="lightbox-img"
+        id="lightbox-img" />
+      <p class="lightbox-caption"
+        id="lightbox-caption"></p>
+      <p class="lightbox-counter"
+        id="lightbox-counter"></p>
+    </div>
+    <button class="lightbox-next"
+      id="lightbox-next"
+      onclick="lightboxNav(1)"
+      aria-label="Next">›</button>
+  </div>
+
+
+  <script src="js/supabase.js"></script>
+  <script src="js/gallery.js"></script>
+
+</body>
+</html>
