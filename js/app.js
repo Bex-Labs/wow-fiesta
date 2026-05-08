@@ -25,6 +25,12 @@
 ============================================ */
 const PAYSTACK_PUBLIC_KEY    = 'pk_test_da61808dbf2ddb885bc7a88ff6f56fa22e614d2b';
 
+// ── EmailJS credentials ──
+// Replace these with your actual values from emailjs.com
+const EMAILJS_SERVICE_ID  = 'wow_fiesta_service';
+const EMAILJS_TEMPLATE_ID = 'template_zct8vl2';
+const EMAILJS_PUBLIC_KEY  = 'ZwmKZd9f4YobPndRb';
+
 /* ============================================
    1. COUNTDOWN TIMER
    EVENT_DATE starts as a fallback.
@@ -462,8 +468,7 @@ async function handleFreeRegistration(formData) {
 async function onPaymentSuccess(formData, gateway, transactionRef) {
   console.log(`✓ Payment complete via ${gateway}. Ref: ${transactionRef}`);
 
-  // Save to Supabase if it was a paid booking
-  // (free registrations save before this is called)
+  // Save to Supabase for paid bookings
   if (gateway !== 'free' && window.db) {
     try {
       const citySelect     = document.getElementById('city-select');
@@ -485,184 +490,430 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
         payment_status:    'success',
         booking_reference: formData.bookingRef
       }]);
+
       console.log('✓ Registration saved to Supabase');
     } catch (err) {
-      console.error('Save registration error:', err.message);
+      console.error('Save error:', err.message);
     }
   }
 
-  // Format the amount display
+  // Get event details for the receipt
+  const citySelect     = document.getElementById('city-select');
+  const selectedOption = citySelect?.options[citySelect?.selectedIndex];
+  const eventDate      = selectedOption?.dataset.date || '';
+  const venue          = selectedOption?.dataset.venue || '';
+
+  // Format the date nicely
+  const dateObj       = eventDate
+    ? new Date(eventDate + 'T00:00:00') : new Date();
+  const formattedDate = dateObj.toLocaleDateString('en-NG', {
+    weekday: 'long',
+    day:     'numeric',
+    month:   'long',
+    year:    'numeric'
+  });
+
   const amountDisplay = formData.totalAmount > 0
     ? `₦${formData.totalAmount.toLocaleString()}`
     : 'FREE';
 
-  const gatewayDisplay = gateway === 'free'
-    ? 'Free Registration'
-    : gateway.charAt(0).toUpperCase() + gateway.slice(1);
+  // Build QR code data — everything encoded
+  const qrData = JSON.stringify({
+    ref:      formData.bookingRef,
+    name:     formData.fullName,
+    city:     formData.city,
+    date:     formattedDate,
+    venue:    venue,
+    children: formData.numChildren,
+    adults:   formData.numAdults,
+    amount:   amountDisplay,
+    phone:    formData.phone
+  });
 
-  // Replace the form with the success card
+  // Replace form with receipt
   const formCard = document.getElementById('register-form-card');
   if (!formCard) return;
 
   formCard.innerHTML = `
-    <div style="text-align:center; padding: 20px 0;">
+    <div id="receipt-card" style="
+      text-align: center;
+      padding: 20px 0;
+      font-family: 'Nunito', sans-serif;
+    ">
 
+      <!-- Logo -->
+      <img
+        src="assets/logo.png"
+        alt="WoW Fiesta Logo"
+        style="
+          width: 72px;
+          height: 72px;
+          object-fit: contain;
+          margin: 0 auto 8px;
+          border-radius: 12px;
+        "
+      />
+
+      <!-- Event name -->
+      <p style="
+        font-size: 13px;
+        font-weight: 700;
+        color: #7B3FBE;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      ">WoW Children's Day Fiesta</p>
+
+      <!-- Success icon -->
       <div style="
-        width: 72px; height: 72px;
+        width: 64px;
+        height: 64px;
         background: #D1FAE5;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 36px;
+        margin: 12px auto 16px;
+        font-size: 28px;
       ">✓</div>
 
+      <!-- Title -->
       <h3 style="
         font-family: 'Fredoka One', cursive;
-        font-size: 28px;
+        font-size: 26px;
         color: #5B2D8E;
-        margin-bottom: 8px;
-      ">You're In!</h3>
+        margin-bottom: 6px;
+      ">Booking Confirmed!</h3>
 
       <p style="
-        font-size: 15px;
+        font-size: 14px;
         color: #6B7280;
-        margin-bottom: 28px;
-        line-height: 1.7;
+        margin-bottom: 20px;
+        line-height: 1.6;
       ">
-        Your booking is confirmed. We can't wait
-        to see you at WoW Fiesta ${formData.city}!
+        You're all set! Present this receipt at the gate.
       </p>
 
+      <!-- Booking reference -->
       <div style="
         background: #F5F0FF;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        text-align: left;
+        border-radius: 10px;
+        padding: 14px 20px;
+        margin-bottom: 16px;
       ">
         <p style="
           font-size: 11px;
           color: #7B3FBE;
           font-weight: 700;
           letter-spacing: 1.5px;
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         ">BOOKING REFERENCE</p>
         <p style="
-          font-size: 24px;
+          font-size: 22px;
           font-weight: 800;
           color: #5B2D8E;
           letter-spacing: 2px;
+          font-family: 'Courier New', monospace;
         ">${formData.bookingRef}</p>
       </div>
 
+      <!-- QR Code -->
+      <div style="margin-bottom: 16px;">
+        <p style="
+          font-size: 11px;
+          color: #6B7280;
+          font-weight: 700;
+          letter-spacing: 1px;
+          margin-bottom: 8px;
+          text-transform: uppercase;
+        ">Scan at Event Gate</p>
+        <div style="
+          display: inline-block;
+          padding: 12px;
+          background: white;
+          border: 2px solid #EDE9FE;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(91,45,142,0.1);
+        ">
+          <canvas id="qr-canvas"></canvas>
+        </div>
+      </div>
+
+      <!-- Booking details -->
       <div style="
         background: #F9FAFB;
-        border-radius: 12px;
-        padding: 16px 20px;
-        margin-bottom: 24px;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
         text-align: left;
-        font-size: 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        font-size: 13px;
       ">
         <div style="
           display: flex;
           justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
         ">
           <span style="color:#6B7280;">Name</span>
-          <span style="font-weight:700;">
+          <span style="font-weight:700;color:#1F1F2E;">
             ${formData.fullName}
           </span>
         </div>
         <div style="
           display: flex;
           justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
         ">
           <span style="color:#6B7280;">City</span>
-          <span style="font-weight:700;">
+          <span style="font-weight:700;color:#1F1F2E;">
             ${formData.city}
           </span>
         </div>
         <div style="
           display: flex;
           justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
+        ">
+          <span style="color:#6B7280;">Date</span>
+          <span style="font-weight:700;color:#1F1F2E;">
+            ${formattedDate}
+          </span>
+        </div>
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
+        ">
+          <span style="color:#6B7280;">Venue</span>
+          <span style="
+            font-weight:700;
+            color:#1F1F2E;
+            text-align:right;
+            max-width:180px;
+          ">${venue}</span>
+        </div>
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
         ">
           <span style="color:#6B7280;">Children / PWDs</span>
-          <span style="font-weight:700; color:#10B981;">
+          <span style="font-weight:700;color:#10B981;">
             ${formData.numChildren} — FREE
           </span>
         </div>
         <div style="
           display: flex;
           justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px solid #F3F4F6;
         ">
           <span style="color:#6B7280;">Adults</span>
-          <span style="font-weight:700;">
+          <span style="font-weight:700;color:#1F1F2E;">
             ${formData.numAdults}
           </span>
         </div>
         <div style="
           display: flex;
           justify-content: space-between;
-          border-top: 1px solid #E5E7EB;
-          padding-top: 10px;
-          margin-top: 4px;
+          padding: 8px 0 4px;
         ">
-          <span style="color:#6B7280;">Amount Paid</span>
           <span style="
-            font-weight: 800;
-            font-size: 16px;
-            color: #5B2D8E;
+            color:#5B2D8E;
+            font-weight:800;
+            font-size:14px;
+          ">Total Paid</span>
+          <span style="
+            font-weight:800;
+            font-size:16px;
+            color:#5B2D8E;
           ">${amountDisplay}</span>
-        </div>
-        <div style="
-          display: flex;
-          justify-content: space-between;
-        ">
-          <span style="color:#6B7280;">Paid via</span>
-          <span style="font-weight:700;">
-            ${gatewayDisplay}
-          </span>
         </div>
       </div>
 
+      <!-- Confirmation email note -->
       <p style="
-        font-size: 13px;
+        font-size: 12px;
         color: #6B7280;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         line-height: 1.6;
-      ">
-        A confirmation has been sent to
-        <strong>${formData.email}</strong>
+      " id="email-status-msg">
+        📧 Sending confirmation to
+        <strong>${formData.email}</strong>...
       </p>
 
-      
-        href="https://wa.me/?text=I%20just%20registered%20for%20WoW%20Children's%20Day%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20Booking%20ref%3A%20${formData.bookingRef}"
-        target="_blank"
-        style="
-          display: block;
-          background: #25D366;
-          color: white;
-          font-weight: 800;
-          font-size: 15px;
-          padding: 14px;
-          border-radius: 999px;
-          text-decoration: none;
-          text-align: center;
-          margin-bottom: 12px;
-          transition: opacity 0.2s;
-        "
-      >
-        📲 Share on WhatsApp
-      </a>
+      <!-- Action buttons -->
+      <div style="
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      ">
 
+        <!-- Print / Save button -->
+        <button
+          onclick="printReceipt()"
+          style="
+            background: #5B2D8E;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 13px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+          ">
+          🖨️ Print / Save Receipt
+        </button>
+
+        <!-- WhatsApp share -->
+        
+          href="https://wa.me/?text=I%20just%20registered%20for%20WoW%20Children's%20Day%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20%0ABooking%20ref%3A%20${formData.bookingRef}%0ADate%3A%20${encodeURIComponent(formattedDate)}%0AVenue%3A%20${encodeURIComponent(venue)}"
+          target="_blank"
+          style="
+            display: block;
+            background: #25D366;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 13px;
+            border-radius: 999px;
+            text-decoration: none;
+            text-align: center;
+          ">
+          📲 Share on WhatsApp
+        </a>
+
+      </div>
     </div>
   `;
+
+  // Generate QR code into the canvas
+  const canvas = document.getElementById('qr-canvas');
+  if (canvas && typeof QRCode !== 'undefined') {
+    QRCode.toCanvas(canvas, qrData, {
+      width:           180,
+      margin:          1,
+      color: {
+        dark:  '#5B2D8E',
+        light: '#FFFFFF'
+      }
+    }, (err) => {
+      if (err) console.error('QR error:', err);
+      else console.log('✓ QR code generated');
+    });
+  }
+
+  // Send confirmation email via EmailJS
+  sendConfirmationEmail(formData, formattedDate, venue, amountDisplay);
 }
 
+
+/* ============================================
+   SEND CONFIRMATION EMAIL
+   Uses EmailJS to send a confirmation
+   email to the attendee after booking
+============================================ */
+async function sendConfirmationEmail(
+  formData, formattedDate, venue, amountDisplay
+) {
+  const statusMsg = document.getElementById('email-status-msg');
+
+  try {
+    // Initialise EmailJS with your public key
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // Send the email using your template
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        attendee_name:  formData.fullName,
+        attendee_email: formData.email,
+        booking_ref:    formData.bookingRef,
+        city:           formData.city,
+        event_date:     formattedDate,
+        venue:          venue,
+        num_children:   formData.numChildren,
+        num_adults:     formData.numAdults,
+        amount_paid:    amountDisplay,
+        phone:          formData.phone
+      }
+    );
+
+    console.log('✓ Confirmation email sent');
+
+    if (statusMsg) {
+      statusMsg.innerHTML = `
+        ✅ Confirmation sent to
+        <strong>${formData.email}</strong>
+      `;
+      statusMsg.style.color = '#065F46';
+    }
+
+  } catch (err) {
+    console.error('Email error:', err);
+    if (statusMsg) {
+      statusMsg.innerHTML = `
+        Receipt shown above.
+        Check your email at
+        <strong>${formData.email}</strong>
+      `;
+    }
+  }
+}
+
+
+/* ============================================
+   PRINT RECEIPT
+   Opens a clean print view of the receipt
+   so the user can print or save as PDF
+============================================ */
+function printReceipt() {
+  const receiptEl = document.getElementById('receipt-card');
+  if (!receiptEl) return;
+
+  const printWindow = window.open('', '_blank');
+
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>WoW Fiesta Booking Receipt</title>
+      <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          font-family: 'Nunito', sans-serif;
+          background: white;
+          padding: 40px;
+          max-width: 480px;
+          margin: 0 auto;
+        }
+        @media print {
+          body { padding: 20px; }
+        }
+      </style>
+    </head>
+    <body>
+      ${receiptEl.innerHTML}
+    </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+
+  // Wait for fonts to load then print
+  setTimeout(() => {
+    printWindow.print();
+  }, 800);
+}
 
 /* ============================================
    14. RESET REGISTER BUTTON
