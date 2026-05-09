@@ -771,26 +771,14 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
           🖨️ Print / Save Receipt
         </button>
 
-        <!-- WhatsApp share -->
+       <!-- WhatsApp share -->
         
-          href="https://wa.me/?text=I%20just%20registered%20for%20WoW%20Children's%20Day%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20%0ABooking%20ref%3A%20${formData.bookingRef}%0ADate%3A%20${encodeURIComponent(formattedDate)}%0AVenue%3A%20${encodeURIComponent(venue)}"
+          href="https://wa.me/?text=I%20just%20registered%20for%20WoW%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20Booking%20ref%3A%20${formData.bookingRef}"
           target="_blank"
-          style="
-            display: block;
-            background: #25D366;
-            color: white;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 800;
-            font-size: 14px;
-            padding: 13px;
-            border-radius: 999px;
-            text-decoration: none;
-            text-align: center;
-          ">
+          style="display:block;background:#25D366;color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;padding:14px;border-radius:999px;text-decoration:none;text-align:center;">
           📲 Share on WhatsApp
         </a>
-
-      </div>
+       </div> 
     </div>
   `;
 
