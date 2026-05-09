@@ -780,21 +780,62 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
     </div>
   `;
 
-  // Generate QR code into the canvas
+  // Store QR data globally so we can
+  // retry if the library is not ready yet
+  pendingQRData = qrData;
+
+  // Try to generate QR code immediately
+  // then retry every 200ms until it works
+  generateQRCode();
+
+  /* ============================================
+   GENERATE QR CODE
+   Tries to render the QR code into the canvas.
+   Retries every 200ms if the library is not
+   ready yet or canvas does not exist yet.
+============================================ */
+function generateQRCode() {
   const canvas = document.getElementById('qr-canvas');
-  if (canvas && typeof QRCode !== 'undefined') {
-    QRCode.toCanvas(canvas, qrData, {
-      width:           180,
-      margin:          1,
+
+  // If canvas not in DOM yet — retry in 200ms
+  if (!canvas) {
+    setTimeout(generateQRCode, 200);
+    return;
+  }
+
+  // If QRCode library not loaded yet — retry
+  if (typeof QRCode === 'undefined') {
+    setTimeout(generateQRCode, 200);
+    return;
+  }
+
+  // If no data to encode — stop
+  if (!pendingQRData) return;
+
+  // Generate the QR code
+  QRCode.toCanvas(
+    canvas,
+    pendingQRData,
+    {
+      width:  180,
+      margin: 1,
       color: {
         dark:  '#5B2D8E',
         light: '#FFFFFF'
       }
-    }, (err) => {
-      if (err) console.error('QR error:', err);
-      else console.log('✓ QR code generated');
-    });
-  }
+    },
+    (err) => {
+      if (err) {
+        console.error('QR error:', err);
+        // Retry on error
+        setTimeout(generateQRCode, 300);
+      } else {
+        console.log('✓ QR code generated');
+        pendingQRData = null;
+      }
+    }
+  );
+}
 
   // Send confirmation email via EmailJS
   sendConfirmationEmail(formData, formattedDate, venue, amountDisplay);
@@ -864,10 +905,18 @@ async function sendConfirmationEmail(
 function printReceipt() {
   // Get the QR code canvas and convert to image
   // before opening the print window
-  const canvas   = document.getElementById('qr-canvas');
-  const qrImage  = canvas
-    ? canvas.toDataURL('image/png')
-    : null;
+  const canvas  = document.getElementById('qr-canvas');
+  let qrImage   = null;
+
+  // Only convert to image if canvas has been drawn on
+  // An empty canvas will have width > 0
+  if (canvas && canvas.width > 0 && canvas.height > 0) {
+    try {
+      qrImage = canvas.toDataURL('image/png');
+    } catch (e) {
+      console.log('Canvas convert note:', e.message);
+    }
+  }
 
   const formCard = document.getElementById('register-form-card');
   if (!formCard) return;
