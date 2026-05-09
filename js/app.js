@@ -771,13 +771,11 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
           🖨️ Print / Save Receipt
         </button>
 
-       <!-- WhatsApp share -->
-        
-          href="https://wa.me/?text=I%20just%20registered%20for%20WoW%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20Booking%20ref%3A%20${formData.bookingRef}"
-          target="_blank"
-          style="display:block;background:#25D366;color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;padding:14px;border-radius:999px;text-decoration:none;text-align:center;">
+       <button
+          onclick="window.open('https://wa.me/?text=I%20just%20registered%20for%20WoW%20Fiesta%20${encodeURIComponent(formData.city)}!%20%F0%9F%8E%89%20Booking%20ref%3A%20${formData.bookingRef}', '_blank')"
+          style="width:100%;background:#25D366;color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;padding:14px;border-radius:999px;border:none;cursor:pointer;text-align:center;">
           📲 Share on WhatsApp
-        </a>
+        </button>
        </div> 
     </div>
   `;
@@ -864,45 +862,274 @@ async function sendConfirmationEmail(
    so the user can print or save as PDF
 ============================================ */
 function printReceipt() {
-  const receiptEl = document.getElementById('receipt-card');
-  if (!receiptEl) return;
+  // Get the QR code canvas and convert to image
+  // before opening the print window
+  const canvas   = document.getElementById('qr-canvas');
+  const qrImage  = canvas
+    ? canvas.toDataURL('image/png')
+    : null;
 
+  const formCard = document.getElementById('register-form-card');
+  if (!formCard) return;
+
+  // Get current receipt data from the DOM
+  const bookingRef = formCard.querySelector(
+    '[style*="letter-spacing: 2px"]'
+  )?.textContent || '';
+
+  // Open a new clean print window
   const printWindow = window.open('', '_blank');
 
+  // Build the receipt HTML for printing
+  // using an <img> tag for the QR code
+  // instead of a canvas element
   printWindow.document.write(`
     <!DOCTYPE html>
     <html>
     <head>
       <title>WoW Fiesta Booking Receipt</title>
-      <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+      />
       <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
           font-family: 'Nunito', sans-serif;
           background: white;
-          padding: 40px;
-          max-width: 480px;
+          padding: 32px;
+          max-width: 520px;
           margin: 0 auto;
+          color: #374151;
+        }
+        .receipt-header {
+          text-align: center;
+          margin-bottom: 20px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid #EDE9FE;
+        }
+        .receipt-logo {
+          width: 64px;
+          height: 64px;
+          object-fit: contain;
+          border-radius: 10px;
+          margin: 0 auto 8px;
+          display: block;
+        }
+        .event-name {
+          font-size: 12px;
+          font-weight: 700;
+          color: #7B3FBE;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .tick {
+          width: 52px;
+          height: 52px;
+          background: #D1FAE5;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          margin: 0 auto 10px;
+          line-height: 52px;
+          text-align: center;
+        }
+        .confirmed-title {
+          font-family: 'Fredoka One', cursive;
+          font-size: 28px;
+          color: #5B2D8E;
+          margin-bottom: 4px;
+        }
+        .confirmed-sub {
+          font-size: 13px;
+          color: #6B7280;
+          margin-bottom: 0;
+        }
+        .booking-ref-box {
+          background: #F5F0FF;
+          border-radius: 10px;
+          padding: 12px 16px;
+          text-align: center;
+          margin: 16px 0;
+        }
+        .ref-label {
+          font-size: 10px;
+          color: #7B3FBE;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          margin-bottom: 4px;
+        }
+        .ref-value {
+          font-family: 'Courier New', monospace;
+          font-size: 20px;
+          font-weight: 800;
+          color: #5B2D8E;
+          letter-spacing: 2px;
+        }
+        .qr-section {
+          text-align: center;
+          margin: 16px 0;
+        }
+        .qr-label {
+          font-size: 10px;
+          color: #6B7280;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          margin-bottom: 8px;
+        }
+        .qr-wrap {
+          display: inline-block;
+          padding: 10px;
+          border: 2px solid #EDE9FE;
+          border-radius: 10px;
+        }
+        .qr-wrap img {
+          display: block;
+          width: 160px;
+          height: 160px;
+        }
+        .details-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 13px;
+          margin: 16px 0;
+        }
+        .details-table tr {
+          border-bottom: 1px solid #F3F4F6;
+        }
+        .details-table tr:last-child {
+          border-bottom: none;
+        }
+        .details-table td {
+          padding: 8px 4px;
+          vertical-align: top;
+        }
+        .details-table td:first-child {
+          color: #6B7280;
+          width: 45%;
+        }
+        .details-table td:last-child {
+          font-weight: 700;
+          color: #1F1F2E;
+          text-align: right;
+        }
+        .total-row td {
+          font-size: 15px;
+          font-weight: 800;
+          color: #5B2D8E;
+          padding-top: 12px;
+        }
+        .free-text { color: #10B981; }
+        .receipt-footer {
+          text-align: center;
+          margin-top: 20px;
+          padding-top: 16px;
+          border-top: 1px solid #EDE9FE;
+          font-size: 11px;
+          color: #9CA3AF;
+          line-height: 1.6;
         }
         @media print {
-          body { padding: 20px; }
+          body { padding: 16px; }
         }
       </style>
     </head>
     <body>
-      ${receiptEl.innerHTML}
+
+      <div class="receipt-header">
+        <img
+          src="${window.location.origin}/assets/logo.png"
+          alt="WoW Fiesta"
+          class="receipt-logo"
+        />
+        <p class="event-name">WoW Children's Day Fiesta</p>
+        <div class="tick">✓</div>
+        <h2 class="confirmed-title">Booking Confirmed!</h2>
+        <p class="confirmed-sub">
+          Present this receipt at the event gate
+        </p>
+      </div>
+
+      <div class="booking-ref-box">
+        <p class="ref-label">BOOKING REFERENCE</p>
+        <p class="ref-value" id="print-ref">Loading...</p>
+      </div>
+
+      <div class="qr-section">
+        <p class="qr-label">Scan at Event Gate</p>
+        <div class="qr-wrap">
+          ${qrImage
+            ? `<img src="${qrImage}" alt="QR Code" />`
+            : '<p style="color:#6B7280;font-size:12px;padding:20px;">QR Code</p>'
+          }
+        </div>
+      </div>
+
+      <table class="details-table" id="print-details">
+        <tr>
+          <td>Loading details...</td>
+          <td></td>
+        </tr>
+      </table>
+
+      <div class="receipt-footer">
+        <p>✅ Confirmation sent to your email</p>
+        <p style="margin-top:6px;">
+          WoW Children's Day Fiesta &nbsp;·&nbsp;
+          Celebrating Childhood Wonder Since 2015
+        </p>
+      </div>
+
     </body>
     </html>
   `);
 
   printWindow.document.close();
 
-  // Wait for fonts to load then print
+  // Pass data to the print window from the
+  // original receipt card on the main page
   setTimeout(() => {
-    printWindow.print();
-  }, 800);
-}
+    try {
+      // Copy booking reference
+      const refEl = document.querySelector(
+        '#receipt-card [style*="letter-spacing: 2px"]'
+      );
+      const printRef = printWindow.document.getElementById('print-ref');
+      if (refEl && printRef) {
+        printRef.textContent = refEl.textContent;
+      }
 
+      // Copy the details table rows
+      const detailRows = document.querySelectorAll(
+        '#receipt-card [style*="justify-content: space-between"]'
+      );
+      const printDetails = printWindow.document.getElementById('print-details');
+      if (detailRows.length && printDetails) {
+        printDetails.innerHTML = Array.from(detailRows).map(row => {
+          const cells = row.querySelectorAll('span');
+          if (cells.length < 2) return '';
+          return `
+            <tr>
+              <td>${cells[0].textContent}</td>
+              <td>${cells[1].innerHTML}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    } catch (e) {
+      console.log('Print data copy note:', e.message);
+    }
+
+    // Print after fonts load
+    setTimeout(() => {
+      printWindow.print();
+    }, 600);
+  }, 400);
+}
 /* ============================================
    14. RESET REGISTER BUTTON
    Called when payment popup is closed
