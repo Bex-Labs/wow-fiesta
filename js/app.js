@@ -517,19 +517,6 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
     ? `₦${formData.totalAmount.toLocaleString()}`
     : 'FREE';
 
-  // Build QR code data — everything encoded
-  const qrData = JSON.stringify({
-    ref:      formData.bookingRef,
-    name:     formData.fullName,
-    city:     formData.city,
-    date:     formattedDate,
-    venue:    venue,
-    children: formData.numChildren,
-    adults:   formData.numAdults,
-    amount:   amountDisplay,
-    phone:    formData.phone
-  });
-
   // Replace form with receipt
   const formCard = document.getElementById('register-form-card');
   if (!formCard) return;
@@ -615,28 +602,6 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
           letter-spacing: 2px;
           font-family: 'Courier New', monospace;
         ">${formData.bookingRef}</p>
-      </div>
-
-      <!-- QR Code -->
-      <div style="margin-bottom: 16px;">
-        <p style="
-          font-size: 11px;
-          color: #6B7280;
-          font-weight: 700;
-          letter-spacing: 1px;
-          margin-bottom: 8px;
-          text-transform: uppercase;
-        ">Scan at Event Gate</p>
-        <div style="
-          display: inline-block;
-          padding: 12px;
-          background: white;
-          border: 2px solid #EDE9FE;
-          border-radius: 12px;
-          box-shadow: 0 2px 8px rgba(91,45,142,0.1);
-        ">
-          <canvas id="qr-canvas"></canvas>
-        </div>
       </div>
 
       <!-- Booking details -->
@@ -780,62 +745,6 @@ async function onPaymentSuccess(formData, gateway, transactionRef) {
     </div>
   `;
 
-  // Store QR data globally so we can
-  // retry if the library is not ready yet
-  pendingQRData = qrData;
-
-  // Try to generate QR code immediately
-  // then retry every 200ms until it works
-  generateQRCode();
-
-  /* ============================================
-   GENERATE QR CODE
-   Tries to render the QR code into the canvas.
-   Retries every 200ms if the library is not
-   ready yet or canvas does not exist yet.
-============================================ */
-function generateQRCode() {
-  const canvas = document.getElementById('qr-canvas');
-
-  // If canvas not in DOM yet — retry in 200ms
-  if (!canvas) {
-    setTimeout(generateQRCode, 200);
-    return;
-  }
-
-  // If QRCode library not loaded yet — retry
-  if (typeof QRCode === 'undefined') {
-    setTimeout(generateQRCode, 200);
-    return;
-  }
-
-  // If no data to encode — stop
-  if (!pendingQRData) return;
-
-  // Generate the QR code
-  QRCode.toCanvas(
-    canvas,
-    pendingQRData,
-    {
-      width:  180,
-      margin: 1,
-      color: {
-        dark:  '#5B2D8E',
-        light: '#FFFFFF'
-      }
-    },
-    (err) => {
-      if (err) {
-        console.error('QR error:', err);
-        // Retry on error
-        setTimeout(generateQRCode, 300);
-      } else {
-        console.log('✓ QR code generated');
-        pendingQRData = null;
-      }
-    }
-  );
-}
 
   // Send confirmation email via EmailJS
   sendConfirmationEmail(formData, formattedDate, venue, amountDisplay);
@@ -903,21 +812,6 @@ async function sendConfirmationEmail(
    so the user can print or save as PDF
 ============================================ */
 function printReceipt() {
-  // Get the QR code canvas and convert to image
-  // before opening the print window
-  const canvas  = document.getElementById('qr-canvas');
-  let qrImage   = null;
-
-  // Only convert to image if canvas has been drawn on
-  // An empty canvas will have width > 0
-  if (canvas && canvas.width > 0 && canvas.height > 0) {
-    try {
-      qrImage = canvas.toDataURL('image/png');
-    } catch (e) {
-      console.log('Canvas convert note:', e.message);
-    }
-  }
-
   const formCard = document.getElementById('register-form-card');
   if (!formCard) return;
 
@@ -1018,29 +912,6 @@ function printReceipt() {
           color: #5B2D8E;
           letter-spacing: 2px;
         }
-        .qr-section {
-          text-align: center;
-          margin: 16px 0;
-        }
-        .qr-label {
-          font-size: 10px;
-          color: #6B7280;
-          font-weight: 700;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          margin-bottom: 8px;
-        }
-        .qr-wrap {
-          display: inline-block;
-          padding: 10px;
-          border: 2px solid #EDE9FE;
-          border-radius: 10px;
-        }
-        .qr-wrap img {
-          display: block;
-          width: 160px;
-          height: 160px;
-        }
         .details-table {
           width: 100%;
           border-collapse: collapse;
@@ -1106,16 +977,6 @@ function printReceipt() {
       <div class="booking-ref-box">
         <p class="ref-label">BOOKING REFERENCE</p>
         <p class="ref-value" id="print-ref">Loading...</p>
-      </div>
-
-      <div class="qr-section">
-        <p class="qr-label">Scan at Event Gate</p>
-        <div class="qr-wrap">
-          ${qrImage
-            ? `<img src="${qrImage}" alt="QR Code" />`
-            : '<p style="color:#6B7280;font-size:12px;padding:20px;">QR Code</p>'
-          }
-        </div>
       </div>
 
       <table class="details-table" id="print-details">
