@@ -74,3 +74,167 @@ document.addEventListener('click', e => {
     !ham?.contains(e.target)
   ) closeMenu();
 });
+
+/* ============================================
+   AFTER PARTY REGISTRATION
+   Paystack payment for adult-only tickets
+   ₦3,000 per adult — Lagos only
+============================================ */
+
+// ── Paste your Paystack public key here ──
+const AP_PAYSTACK_KEY = 'pk_test_da61808dbf2ddb885bc7a88ff6f56fa22e614d2b';
+
+// Load Paystack script
+(function loadAPPaystack() {
+  const s   = document.createElement('script');
+  s.src     = 'https://js.paystack.co/v1/inline.js';
+  s.onload  = () => console.log('✓ Paystack ready');
+  document.head.appendChild(s);
+})();
+
+// Update live total when adult count changes
+function updateAPTotal() {
+  const adults      = parseInt(
+    document.getElementById('ap-adults')?.value
+  ) || 1;
+  const total       = adults * 3000;
+  const totalEl     = document.getElementById('ap-total-display');
+  const btnEl       = document.getElementById('ap-register-btn');
+
+  if (totalEl) {
+    totalEl.textContent = `₦${total.toLocaleString()}`;
+  }
+  if (btnEl) {
+    btnEl.textContent =
+      `PAY ₦${total.toLocaleString()} & GET TICKETS`;
+  }
+}
+
+// Call once on load to set initial state
+updateAPTotal();
+
+// Generate booking ref
+function generateAPRef() {
+  const ts  = Date.now().toString(36).toUpperCase();
+  const rnd = Math.random().toString(36)
+    .substring(2, 6).toUpperCase();
+  return `IBPP-${ts}-${rnd}`;
+}
+
+// Validate form fields
+function validateAPForm() {
+  const name  = document.getElementById('ap-name')?.value.trim();
+  const email = document.getElementById('ap-email')?.value.trim();
+  const phone = document.getElementById('ap-phone')?.value.trim();
+  const adults = parseInt(
+    document.getElementById('ap-adults')?.value
+  ) || 0;
+
+  // Clear previous errors
+  document.querySelectorAll('#ibpp-form input')
+    .forEach(el => el.classList.remove('error'));
+
+  let valid = true;
+
+  if (!name) {
+    document.getElementById('ap-name')
+      .classList.add('error');
+    valid = false;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('ap-email')
+      .classList.add('error');
+    valid = false;
+  }
+  if (!phone || phone.length < 10) {
+    document.getElementById('ap-phone')
+      .classList.add('error');
+    valid = false;
+  }
+  if (adults < 1) {
+    document.getElementById('ap-adults')
+      .classList.add('error');
+    valid = false;
+  }
+
+  return valid;
+}
+
+// Main handler — called when Pay button clicked
+function handleAfterPartyRegistration() {
+  if (!validateAPForm()) return;
+
+  const name    = document.getElementById('ap-name').value.trim();
+  const email   = document.getElementById('ap-email').value.trim();
+  const phone   = document.getElementById('ap-phone').value.trim();
+  const adults  = parseInt(
+    document.getElementById('ap-adults').value
+  ) || 1;
+  const total   = adults * 3000;
+  const ref     = generateAPRef();
+
+  // Show loading state
+  const btn       = document.getElementById('ap-register-btn');
+  btn.textContent = 'Processing...';
+  btn.disabled    = true;
+
+  // Open Paystack
+  const handler = PaystackPop.setup({
+    key:      AP_PAYSTACK_KEY,
+    email:    email,
+    amount:   total * 100,
+    currency: 'NGN',
+    ref:      ref,
+    metadata: {
+      custom_fields: [
+        { display_name: 'Full Name',  value: name  },
+        { display_name: 'Phone',      value: phone },
+        { display_name: 'Event',      value: 'I Be Person Pikin' },
+        { display_name: 'Adults',     value: adults },
+        { display_name: 'Booking Ref', value: ref  }
+      ]
+    },
+    callback: function (response) {
+      console.log('✓ After party payment success:', response);
+      showAPSuccess(name, email, ref, adults, total);
+    },
+    onClose: function () {
+      btn.textContent = `PAY ₦${total.toLocaleString()} & GET TICKETS`;
+      btn.disabled    = false;
+    }
+  });
+
+  handler.openIframe();
+}
+
+// Show success confirmation
+function showAPSuccess(name, email, ref, adults, total) {
+  const form    = document.getElementById('ibpp-form');
+  const success = document.getElementById('ap-success');
+
+  if (form)    form.style.display    = 'none';
+  if (success) success.style.display = 'block';
+
+  const refEl   = document.getElementById('ap-success-ref');
+  const emailEl = document.getElementById('ap-success-email');
+
+  if (refEl) {
+    refEl.innerHTML = `
+      <strong style="
+        font-family: 'Fredoka One', cursive;
+        font-size: 18px;
+        color: #F59E0B;
+        letter-spacing: 1px;
+        display: block;
+        margin: 8px 0;
+      ">${ref}</strong>
+      ${adults} adult ticket${adults > 1 ? 's' : ''} ·
+      ₦${total.toLocaleString()} paid
+    `;
+  }
+
+  if (emailEl) {
+    emailEl.textContent =
+      `Confirmation details sent to ${email}`;
+  }
+}

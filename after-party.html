@@ -331,10 +331,81 @@
             <span>🎟</span>
             <span>Adults Only (18+)</span>
           </div>
-          <button class="ibpp-ticket-btn"
-            onclick="window.location.href='index.html#register'">
-            GET TICKETS NOW
-          </button>
+          
+<!-- After Party Registration Form -->
+          <div class="ibpp-form" id="ibpp-form">
+
+            <div class="ibpp-form-group">
+              <input
+                type="text"
+                id="ap-name"
+                placeholder="Your full name"
+              />
+            </div>
+
+            <div class="ibpp-form-group">
+              <input
+                type="email"
+                id="ap-email"
+                placeholder="Email address"
+              />
+            </div>
+
+            <div class="ibpp-form-group">
+              <input
+                type="tel"
+                id="ap-phone"
+                placeholder="Phone number e.g. 08012345678"
+              />
+            </div>
+
+            <div class="ibpp-form-group">
+              <input
+                type="number"
+                id="ap-adults"
+                min="1"
+                max="10"
+                value="1"
+                oninput="updateAPTotal()"
+              />
+              <p class="ap-field-hint">
+                Number of adult tickets — ₦3,000 each
+              </p>
+            </div>
+
+            <!-- Live total -->
+            <div class="ap-total-box" id="ap-total-box">
+              <span>Total</span>
+              <span id="ap-total-display">₦3,000</span>
+            </div>
+
+            <button
+              class="ibpp-ticket-btn"
+              id="ap-register-btn"
+              onclick="handleAfterPartyRegistration()">
+              PAY &amp; GET TICKETS
+            </button>
+
+            <p style="
+              font-size: 11px;
+              color: rgba(255,255,255,0.45);
+              margin-top: 8px;
+              text-align: center;
+            ">
+              🔒 Secured by Paystack · Adults only (18+)
+            </p>
+
+          </div>
+
+          <!-- Success state — hidden by default -->
+          <div class="ap-success" id="ap-success"
+            style="display:none">
+            <div class="ap-success-icon">✓</div>
+            <h4>You're In!</h4>
+            <p id="ap-success-ref"></p>
+            <p id="ap-success-email"></p>
+          </div>          
+
           <p style="
             font-size: 12px;
             color: rgba(255,255,255,0.6);
