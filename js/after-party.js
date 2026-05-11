@@ -97,7 +97,7 @@ function updateAPTotal() {
   const adults      = parseInt(
     document.getElementById('ap-adults')?.value
   ) || 1;
-  const total       = adults * 3000;
+  const total       = adults * 5000;
   const totalEl     = document.getElementById('ap-total-display');
   const btnEl       = document.getElementById('ap-register-btn');
 
@@ -170,7 +170,7 @@ function handleAfterPartyRegistration() {
   const adults  = parseInt(
     document.getElementById('ap-adults').value
   ) || 1;
-  const total   = adults * 3000;
+  const total   = adults * 5000;
   const ref     = generateAPRef();
 
   // Show loading state

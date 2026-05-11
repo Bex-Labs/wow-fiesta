@@ -87,13 +87,9 @@
     <div class="ibpp-hero-inner">
 
       <!-- Left: Flyer image -->
-      <div class="ibpp-flyer-wrap">
-        <img
-          src="assets/images/ibpp-flyer.jpeg"
-          alt="I Be Person Pikin Flyer"
-          class="ibpp-flyer"
-        />
-      </div>
+      <h1 class="ibpp-title">
+          I BE PERSON PIKIN
+        </h1>
 
       <!-- Right: Text content -->
       <div class="ibpp-hero-text">
@@ -287,136 +283,146 @@
   </section>
 
 
-  <!-- ============================================
+<!-- ============================================
     TICKET SECTION
   ============================================ -->
   <section class="ibpp-tickets-section" id="ibpp-tickets">
     <div class="ibpp-container">
-      <h2 class="ibpp-section-title white">
+
+      <h2 class="ibpp-section-title-dark">
         Get Your Ticket
       </h2>
-      <p class="ibpp-section-sub white">
+      <p class="ibpp-section-sub-dark">
         Limited spots. Do not wait until it sells out.
       </p>
 
-      <div class="ibpp-ticket-card">
-        <div class="ticket-left">
-          <p class="ticket-event-name">
-            I Be Person Pikin
-          </p>
-          <h3 class="ticket-price">₦3,000</h3>
-          <p class="ticket-per">per adult</p>
-          <ul class="ticket-includes">
+      <!-- Ticket tiers -->
+      <div class="ibpp-tiers-grid">
+
+        <!-- General Access -->
+        <div class="ibpp-tier-card">
+          <div class="tier-badge">General Access</div>
+          <h3 class="tier-price">₦5,000</h3>
+          <p class="tier-per">per person</p>
+          <ul class="tier-includes">
             <li>✓ Full event access</li>
             <li>✓ Live music &amp; DJ</li>
             <li>✓ Adult play zones</li>
             <li>✓ Photo booths</li>
             <li>✓ Surprises on the night</li>
           </ul>
-        </div>
-        <div class="ticket-right">
-          <div class="ticket-detail">
-            <span>📅</span>
-            <span>Wednesday, 27 May 2026</span>
+          <div class="tier-details">
+            <div class="tier-detail-row">
+              <span>📅</span>
+              <span>Wednesday, 27 May 2026</span>
+            </div>
+            <div class="tier-detail-row">
+              <span>⏰</span>
+              <span>7PM Till Late</span>
+            </div>
+            <div class="tier-detail-row">
+              <span>📍</span>
+              <span>Agidingbi, Ikeja, Lagos</span>
+            </div>
+            <div class="tier-detail-row">
+              <span>🎟</span>
+              <span>Adults Only (18+)</span>
+            </div>
           </div>
-          <div class="ticket-detail">
-            <span>⏰</span>
-            <span>7PM Till Late</span>
-          </div>
-          <div class="ticket-detail">
-            <span>📍</span>
-            <span>Agidingbi, Ikeja, Lagos</span>
-          </div>
-          <div class="ticket-detail">
-            <span>🎟</span>
-            <span>Adults Only (18+)</span>
-          </div>
-          
-<!-- After Party Registration Form -->
+
+          <!-- Inline registration form -->
           <div class="ibpp-form" id="ibpp-form">
-
             <div class="ibpp-form-group">
-              <input
-                type="text"
-                id="ap-name"
-                placeholder="Your full name"
-              />
+              <input type="text" id="ap-name"
+                placeholder="Your full name" />
             </div>
-
             <div class="ibpp-form-group">
-              <input
-                type="email"
-                id="ap-email"
-                placeholder="Email address"
-              />
+              <input type="email" id="ap-email"
+                placeholder="Email address" />
             </div>
-
             <div class="ibpp-form-group">
-              <input
-                type="tel"
-                id="ap-phone"
-                placeholder="Phone number e.g. 08012345678"
-              />
+              <input type="tel" id="ap-phone"
+                placeholder="Phone e.g. 08012345678" />
             </div>
-
             <div class="ibpp-form-group">
-              <input
-                type="number"
-                id="ap-adults"
-                min="1"
-                max="10"
-                value="1"
-                oninput="updateAPTotal()"
-              />
+              <input type="number" id="ap-adults"
+                min="1" max="10" value="1"
+                oninput="updateAPTotal()" />
               <p class="ap-field-hint">
-                Number of adult tickets — ₦3,000 each
+                Number of tickets — ₦5,000 each
               </p>
             </div>
-
-            <!-- Live total -->
             <div class="ap-total-box" id="ap-total-box">
               <span>Total</span>
-              <span id="ap-total-display">₦3,000</span>
+              <span id="ap-total-display">₦5,000</span>
             </div>
-
-            <button
-              class="ibpp-ticket-btn"
+            <button class="ibpp-ticket-btn"
               id="ap-register-btn"
               onclick="handleAfterPartyRegistration()">
               PAY &amp; GET TICKETS
             </button>
-
-            <p style="
-              font-size: 11px;
-              color: rgba(255,255,255,0.45);
-              margin-top: 8px;
-              text-align: center;
-            ">
+            <p class="ap-secure-note">
               🔒 Secured by Paystack · Adults only (18+)
             </p>
-
           </div>
 
-          <!-- Success state — hidden by default -->
+          <!-- Success state -->
           <div class="ap-success" id="ap-success"
             style="display:none">
             <div class="ap-success-icon">✓</div>
             <h4>You're In!</h4>
             <p id="ap-success-ref"></p>
             <p id="ap-success-email"></p>
-          </div>          
+          </div>
 
-          <p style="
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-            margin-top: 10px;
-            text-align: center;
-          ">
-            Limited tickets available
-          </p>
         </div>
-      </div>
 
+        <!-- Table for 5 -->
+        <div class="ibpp-tier-card ibpp-tier-vip">
+          <div class="tier-badge vip">Table for 5</div>
+          <h3 class="tier-price vip">₦200,000</h3>
+          <p class="tier-per">per table</p>
+          <ul class="tier-includes">
+            <li>✓ Private table for 5 people</li>
+            <li>✓ 1 complimentary bottle included</li>
+            <li>✓ Dedicated table service</li>
+            <li>✓ Full event access</li>
+            <li>✓ Live music &amp; DJ</li>
+            <li>✓ Priority entry</li>
+          </ul>
+
+          <div class="ibpp-reservation-box">
+            <p class="reservation-heading">
+              📞 Call to Reserve Your Table
+            </p>
+            <p class="reservation-sub">
+              Contact us directly to book your table
+              and confirm your reservation.
+            </p>
+            <div class="reservation-numbers">
+              <a href="tel:+2349010910628"
+                class="reservation-number">
+                +234 901 091 0628
+              </a>
+              <a href="tel:+2348067292528"
+                class="reservation-number">
+                +234 806 729 2528
+              </a>
+              <a href="tel:+2348137875811"
+                class="reservation-number">
+                +234 813 787 5811
+              </a>
+            </div>
+            <a href="https://wa.me/2349010910628?text=Hi%2C%20I%20would%20like%20to%20reserve%20a%20table%20for%20the%20I%20Be%20Person%20Pikin%20After%20Party%20on%20May%2027th%202026."
+              target="_blank"
+              class="ibpp-whatsapp-btn">
+              📲 WhatsApp Us to Reserve
+            </a>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </section>
 
