@@ -23,7 +23,7 @@
    Replace these with your actual keys from
    paystack.com and flutterwave.com
 ============================================ */
-const PAYSTACK_PUBLIC_KEY    = 'pk_test_da61808dbf2ddb885bc7a88ff6f56fa22e614d2b';
+const PAYSTACK_PUBLIC_KEY    = 'pk_live_067f3190cefbd0eff300e721342e112e57490a3f';
 
 // ── EmailJS credentials ──
 // Replace these with your actual values from emailjs.com

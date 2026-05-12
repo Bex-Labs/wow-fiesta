@@ -1,0 +1,407 @@
+/* ============================================
+   DONATE PAGE STYLES
+============================================ */
+
+/* ── Hero ── */
+.donate-hero {
+  background: linear-gradient(135deg, var(--purple) 0%, #3b1f6b 100%);
+  padding: 120px 40px 80px;
+  margin-top: 162px;
+  text-align: center;
+}
+
+.donate-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.donate-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.donate-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(36px, 6vw, 72px);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.donate-desc {
+  font-size: 17px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.donate-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.donate-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 40px;
+  color: #F59E0B;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ── Why Donate ── */
+.donate-why {
+  background: var(--white);
+  padding: 80px 0;
+}
+
+.donate-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.donate-section-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--purple);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.donate-section-sub {
+  font-size: 16px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 48px;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.donate-why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.donate-why-card {
+  background: var(--purple-pale);
+  border: 1.5px solid var(--purple-light);
+  border-radius: var(--radius-md);
+  padding: 28px 20px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.donate-why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  background: var(--white);
+}
+
+.why-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.donate-why-card h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+
+.donate-why-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── Donate Action ── */
+.donate-action {
+  background: var(--purple-pale);
+  padding: 80px 0;
+}
+
+.donate-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.donate-card-left {
+  padding: 48px 40px;
+  border-right: 1px solid var(--light-gray);
+}
+
+.donate-card-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 32px;
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+
+.donate-card-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.donate-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.amount-btn {
+  background: var(--purple-pale);
+  border: 2px solid var(--purple-light);
+  color: var(--purple);
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px;
+  padding: 12px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.amount-btn:hover,
+.amount-btn.selected {
+  background: var(--purple);
+  color: var(--white);
+  border-color: var(--purple);
+}
+
+.donate-custom {
+  margin-bottom: 20px;
+}
+
+.donate-custom label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-body);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.custom-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #E5E7EB;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.naira-sign {
+  padding: 12px 14px;
+  background: var(--purple-pale);
+  font-weight: 800;
+  color: var(--purple);
+  font-size: 16px;
+  border-right: 1.5px solid #E5E7EB;
+}
+
+.custom-input-wrap input {
+  flex: 1;
+  padding: 12px 14px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  color: var(--text-body);
+  outline: none;
+}
+
+.donate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.donate-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: var(--radius-sm);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: var(--text-body);
+  outline: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.donate-form input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(91,45,142,0.1);
+}
+
+.donate-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #F59E0B, #f97316);
+  color: #1F1F2E;
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
+  padding: 18px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 1px;
+}
+
+.donate-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(245,158,11,0.4);
+}
+
+.donate-secure {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ── Right side ── */
+.donate-card-right {
+  padding: 48px 40px;
+  background: var(--purple-pale);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.donate-impact h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
+  color: var(--purple);
+  margin-bottom: 20px;
+}
+
+.impact-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--purple-light);
+}
+
+.impact-amount {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--purple);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.impact-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.donate-quote {
+  background: var(--purple);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.donate-quote p {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.donate-quote span {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .donate-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .donate-hero {
+    margin-top: 150px;
+    padding: 60px 20px 60px;
+  }
+
+  .donate-stats {
+    gap: 28px;
+  }
+
+  .donate-container {
+    padding: 0 20px;
+  }
+
+  .donate-why {
+    padding: 60px 0;
+  }
+
+  .donate-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-action {
+    padding: 60px 0;
+  }
+
+  .donate-card {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-card-left {
+    padding: 32px 24px;
+    border-right: none;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .donate-card-right {
+    padding: 32px 24px;
+  }
+
+  .donate-amounts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
