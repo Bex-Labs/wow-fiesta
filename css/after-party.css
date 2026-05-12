@@ -699,3 +699,20 @@
     font-size: clamp(26px, 8vw, 36px);
   }
 }
+
+/* ── Ticket Section White Text Fix ── */
+.ibpp-section-title.white {
+  color: var(--white);
+}
+
+.ibpp-section-sub.white {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ibpp-tickets-section .ticket-event-name,
+.ibpp-tickets-section .ticket-price,
+.ibpp-tickets-section .ticket-per,
+.ibpp-tickets-section .ticket-includes li,
+.ibpp-tickets-section .ticket-detail {
+  color: var(--white);
+}
