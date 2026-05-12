@@ -716,3 +716,12 @@
 .ibpp-tickets-section .ticket-detail {
   color: var(--white);
 }
+
+/* ── Ticket Section White Text Fix ── */
+.ibpp-section-title.white {
+  color: var(--white);
+}
+
+.ibpp-section-sub.white {
+  color: rgba(255, 255, 255, 0.8);
+}
