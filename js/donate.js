@@ -2,7 +2,7 @@
    DONATE PAGE — donate.js
 ============================================ */
 
-const DONATE_PAYSTACK_KEY = 'pk_test_da61808dbf2ddb885bc7a88ff6f56fa22e614d2b';
+const DONATE_PAYSTACK_KEY = 'pk_live_067f3190cefbd0eff300e721342e112e57490a3f';
 
 // Load Paystack
 (function () {
