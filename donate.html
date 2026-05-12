@@ -143,86 +143,133 @@
     </div>
   </section>
 
-
   <!-- DONATE ACTION -->
-  <section class="donate-action">
-    <div class="donate-container">
-      <div class="donate-card">
+<section class="donate-action">
+  <div class="donate-container">
 
-        <div class="donate-card-left">
-          <h2 class="donate-card-title">Make Your Donation</h2>
-          <p class="donate-card-sub">
-            Every amount counts. Whether it's ₦1,000 or ₦1,000,000 —
-            your generosity creates real impact.
-          </p>
+    <!-- GoFundMe Banner -->
+    <div class="donate-gofundme-banner">
+      <div class="gfm-left">
+        <span class="gfm-tag">🌍 International Donations</span>
+        <h2 class="gfm-title">Support Us on GoFundMe</h2>
+        <p class="gfm-desc">
+          Based outside Nigeria? You can donate easily through our
+          GoFundMe page. Every contribution — big or small — goes
+          directly towards creating magic for children across Lagos.
+        </p>
+      </div>
+      
+        href="https://gofund.me/67ad6dec6"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gfm-btn"
+      >
+        💚 Donate on GoFundMe
+      </a>
+    </div>
 
-          <div class="donate-amounts">
-            <button class="amount-btn" onclick="selectAmount(this, 1000)">₦1,000</button>
-            <button class="amount-btn" onclick="selectAmount(this, 5000)">₦5,000</button>
-            <button class="amount-btn" onclick="selectAmount(this, 10000)">₦10,000</button>
-            <button class="amount-btn" onclick="selectAmount(this, 50000)">₦50,000</button>
-          </div>
+    <!-- Main Donate Card -->
+    <div class="donate-card">
 
-          <div class="donate-custom">
-            <label>Or enter a custom amount</label>
-            <div class="custom-input-wrap">
-              <span class="naira-sign">₦</span>
-              <input
-                type="number"
-                id="custom-amount"
-                placeholder="Enter amount"
-                min="100"
-                oninput="setCustomAmount(this.value)"
-              />
-            </div>
-          </div>
+      <div class="donate-card-left">
+        <h2 class="donate-card-title">Make Your Donation</h2>
+        <p class="donate-card-sub">
+          Every amount counts. Whether it's ₦1,000 or ₦1,000,000 —
+          your generosity creates real impact.
+        </p>
 
-          <div class="donate-form">
-            <input type="text" id="donor-name" placeholder="Your full name" />
-            <input type="email" id="donor-email" placeholder="Your email address" />
-          </div>
-
-          <button class="donate-btn" id="donate-btn" onclick="handleDonation()">
-            💛 DONATE NOW
-          </button>
-          <p class="donate-secure">🔒 Secure payment powered by Paystack</p>
+        <div class="donate-amounts">
+          <button class="amount-btn" onclick="selectAmount(this, 1000)">₦1,000</button>
+          <button class="amount-btn" onclick="selectAmount(this, 5000)">₦5,000</button>
+          <button class="amount-btn" onclick="selectAmount(this, 10000)">₦10,000</button>
+          <button class="amount-btn" onclick="selectAmount(this, 50000)">₦50,000</button>
         </div>
 
-        <div class="donate-card-right">
-          <div class="donate-impact">
-            <h3>What Your Donation Does</h3>
-            <div class="impact-row">
-              <span class="impact-amount">₦1,000</span>
-              <span class="impact-text">feeds one child for the day</span>
-            </div>
-            <div class="impact-row">
-              <span class="impact-amount">₦5,000</span>
-              <span class="impact-text">covers one child's full event experience</span>
-            </div>
-            <div class="impact-row">
-              <span class="impact-amount">₦10,000</span>
-              <span class="impact-text">sponsors art supplies for 10 children</span>
-            </div>
-            <div class="impact-row">
-              <span class="impact-amount">₦50,000</span>
-              <span class="impact-text">funds an entire activity station</span>
-            </div>
-            <div class="impact-row">
-              <span class="impact-amount">₦100,000+</span>
-              <span class="impact-text">becomes a WoW Fiesta sponsor</span>
-            </div>
+        <div class="donate-custom">
+          <label>Or enter a custom amount</label>
+          <div class="custom-input-wrap">
+            <span class="naira-sign">₦</span>
+            <input
+              type="number"
+              id="custom-amount"
+              placeholder="Enter amount"
+              min="100"
+              oninput="setCustomAmount(this.value)"
+            />
           </div>
+        </div>
 
-          <div class="donate-quote">
-            <p>"Every child deserves a day where they feel like the world was made just for them."</p>
-            <span>— WoW Fiesta Team</span>
+        <div class="donate-form">
+          <input type="text" id="donor-name" placeholder="Your full name" />
+          <input type="email" id="donor-email" placeholder="Your email address" />
+        </div>
+
+        <button class="donate-btn" id="donate-btn" onclick="handleDonation()">
+          💛 DONATE NOW
+        </button>
+        <p class="donate-secure">🔒 Secure payment powered by Paystack</p>
+      </div>
+
+      <div class="donate-card-right">
+
+        <!-- Bank Transfer -->
+        <div class="donate-bank">
+          <h3 class="bank-title">🏦 Bank Transfer</h3>
+          <p class="bank-sub">Prefer to pay directly? Use the details below.</p>
+          <div class="bank-details">
+            <div class="bank-row">
+              <span class="bank-label">Bank</span>
+              <span class="bank-value">ACCESS BANK</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Account Number</span>
+              <span class="bank-value bank-acct">1968053390</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Account Name</span>
+              <span class="bank-value">MAKE IT WOW HUMANITARIAN FOUNDATION</span>
+            </div>
           </div>
+        </div>
+
+        <!-- Connect & Contact -->
+        <div class="donate-connect">
+          <h3 class="connect-title">Stay Connected</h3>
+          <div class="connect-row">
+            <span class="connect-icon">📸</span>
+            <div>
+              <p class="connect-label">Follow our journey on Instagram</p>
+              <div class="connect-links">
+                <a href="https://instagram.com/makeitwow_surprises" target="_blank" rel="noopener noreferrer">@makeitwow_surprises</a>
+                <a href="https://instagram.com/makeitwow_foundation" target="_blank" rel="noopener noreferrer">@makeitwow_foundation</a>
+              </div>
+            </div>
+          </div>
+          <div class="connect-row">
+            <span class="connect-icon">✉️</span>
+            <div>
+              <p class="connect-label">Sponsorships &amp; Partnerships</p>
+              <a href="mailto:admin@makeitwow.com.ng" class="connect-link-plain">admin@makeitwow.com.ng</a>
+            </div>
+          </div>
+          <div class="connect-row">
+            <span class="connect-icon">💬</span>
+            <div>
+              <p class="connect-label">WhatsApp</p>
+              <a href="https://wa.me/2348067292528" target="_blank" rel="noopener noreferrer" class="connect-link-plain">08067292528</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="donate-quote">
+          <p>"Every child deserves a day where they feel like the world was made just for them."</p>
+          <span>— WoW Fiesta Team</span>
         </div>
 
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer class="footer">

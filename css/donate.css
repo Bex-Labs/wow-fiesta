@@ -405,3 +405,199 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* ── GoFundMe Banner ── */
+.donate-gofundme-banner {
+  background: linear-gradient(135deg, #00b460, #00873f);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.gfm-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.gfm-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 28px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.gfm-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.gfm-btn {
+  background: var(--white);
+  color: #00873f;
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  padding: 16px 36px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.gfm-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ── Bank Transfer ── */
+.donate-bank {
+  background: var(--white);
+  border: 1.5px solid var(--purple-light);
+  border-left: 4px solid var(--purple);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.bank-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+
+.bank-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.bank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--purple-light);
+  font-size: 14px;
+}
+
+.bank-row:last-child {
+  border-bottom: none;
+}
+
+.bank-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.bank-value {
+  color: var(--dark);
+  font-weight: 800;
+  text-align: right;
+}
+
+.bank-acct {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--purple);
+  letter-spacing: 2px;
+}
+
+/* ── Connect Section ── */
+.donate-connect {
+  background: var(--white);
+  border: 1.5px solid var(--purple-light);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.connect-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--purple);
+  margin-bottom: 16px;
+}
+
+.connect-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--purple-light);
+}
+
+.connect-row:last-child {
+  border-bottom: none;
+}
+
+.connect-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.connect-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.connect-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.connect-links a,
+.connect-link-plain {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--purple);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.connect-links a:hover,
+.connect-link-plain:hover {
+  color: var(--purple-mid);
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .donate-gofundme-banner {
+    flex-direction: column;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .gfm-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
