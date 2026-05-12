@@ -238,3 +238,29 @@ function showAPSuccess(name, email, ref, adults, total) {
       `Confirmation details sent to ${email}`;
   }
 }
+
+/* ── Photo Carousel ── */
+let currentSlide = 0;
+const totalSlides = 3;
+
+function moveCarousel(direction) {
+  currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+  updateCarousel();
+}
+
+function goToSlide(index) {
+  currentSlide = index;
+  updateCarousel();
+}
+
+function updateCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const dots = document.querySelectorAll('.carousel-dot');
+  if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentSlide);
+  });
+}
+
+// Auto-advance every 4 seconds
+setInterval(() => moveCarousel(1), 4000);

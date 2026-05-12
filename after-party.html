@@ -286,6 +286,42 @@
     </div>
   </section>
 
+  <!-- ============================================
+    PHOTO CAROUSEL
+  ============================================ -->
+  <section class="ibpp-carousel-section">
+    <div class="ibpp-container">
+      <h2 class="ibpp-section-title">Last Year's Vibes</h2>
+      <p class="ibpp-section-sub">This is what you missed. Don't miss it again.</p>
+
+      <div class="ibpp-carousel">
+        <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">&#8249;</button>
+
+        <div class="carousel-track-wrapper">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <img src="assets/images/ibpp-photo-1.jpeg" alt="I Be Person Pikin crowd" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/ibpp-photo-2.jpeg" alt="I Be Person Pikin game zone" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/ibpp-photo-3.jpeg" alt="I Be Person Pikin vibes" />
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">&#8250;</button>
+      </div>
+
+      <div class="carousel-dots" id="carouselDots">
+        <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+        <span class="carousel-dot" onclick="goToSlide(1)"></span>
+        <span class="carousel-dot" onclick="goToSlide(2)"></span>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ============================================
     TICKET SECTION
