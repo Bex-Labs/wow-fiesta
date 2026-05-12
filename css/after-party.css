@@ -1,24 +1,16 @@
 /* ============================================
    I BE PERSON PIKIN — AFTER PARTY STYLES
+   White background, purple headings —
+   matches the main site design
 ============================================ */
 
-/* ── Hero Section ── */
+/* ── Hero ── */
 .ibpp-hero {
   background: var(--white);
   padding: 80px 40px 60px;
   margin-top: 162px;
   overflow: hidden;
   position: relative;
-}
-
-.ibpp-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 50%,
-      rgba(91,45,142,0.05) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .ibpp-hero-inner {
@@ -32,7 +24,6 @@
   z-index: 1;
 }
 
-/* Flyer */
 .ibpp-flyer-wrap {
   position: relative;
 }
@@ -44,9 +35,8 @@
   display: block;
 }
 
-/* Hero text */
 .ibpp-hero-text {
-  color: var(--white);
+  color: var(--dark);
 }
 
 .ibpp-tag {
@@ -65,8 +55,8 @@
 
 .ibpp-title {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(36px, 5vw, 64px);
-  line-height: 1.1;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: 1.05;
   margin-bottom: 16px;
   color: var(--dark);
   white-space: normal;
@@ -116,22 +106,22 @@
   background: var(--purple);
   color: var(--white);
   font-family: 'Fredoka One', cursive;
-  font-size: 18px;
-  padding: 14px 40px;
+  font-size: 20px;
+  padding: 16px 44px;
   border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
   transition: var(--transition);
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-md);
   display: block;
   width: fit-content;
   margin-bottom: 12px;
-  box-shadow: var(--shadow-md);
 }
 
 .ibpp-cta-btn:hover {
   background: var(--purple-mid);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -142,7 +132,7 @@
 }
 
 
-/* ── Adulting Is Hard Section ── */
+/* ── Adulting Is Hard ── */
 .ibpp-adulting {
   background: var(--purple-pale);
   padding: 80px 0;
@@ -202,9 +192,8 @@
   color: var(--purple);
 }
 
-/* Reminder card */
 .reminder-card {
-  background: var(--purple-pale);
+  background: var(--white);
   border: 1px solid var(--purple-light);
   border-left: 4px solid var(--purple);
   border-radius: var(--radius-md);
@@ -234,7 +223,6 @@
   margin-bottom: 12px;
 }
 
-/* Cup box */
 .adulting-cup {
   background: #c0392b;
   border-radius: var(--radius-md);
@@ -270,20 +258,12 @@
   margin-bottom: 12px;
 }
 
-.ibpp-section-title.white {
-  color: var(--white);
-}
-
 .ibpp-section-sub {
   font-size: 16px;
   color: var(--text-muted);
   text-align: center;
   margin-bottom: 48px;
   line-height: 1.7;
-}
-
-.ibpp-section-sub.white {
-  color: rgba(255,255,255,0.65);
 }
 
 .ibpp-expect-grid {
@@ -294,7 +274,7 @@
 
 .ibpp-expect-card {
   background: var(--white);
-  border: 1px solid var(--light-gray);
+  border: 1.5px solid var(--light-gray);
   border-radius: var(--radius-md);
   padding: 24px 20px;
   transition: var(--transition);
@@ -329,279 +309,21 @@
 
 /* ── Ticket Section ── */
 .ibpp-tickets-section {
-  background: var(--off-white);
+  background: var(--purple);
   padding: 80px 0;
 }
 
-.ibpp-ticket-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.ticket-left {
-  padding: 36px 32px;
-  border-right: 1px dashed rgba(255,255,255,0.15);
-}
-
-.ticket-event-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-
-.ticket-price {
-  font-family: 'Fredoka One', cursive;
-  font-size: 52px;
-  color: #F59E0B;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.ticket-per {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 24px;
-}
-
-.ticket-includes {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ticket-includes li {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.8);
-}
-
-.ticket-right {
-  padding: 36px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.ticket-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.5;
-}
-
-.ibpp-ticket-btn {
-  background: linear-gradient(135deg, #F59E0B, #f97316);
-  color: #0a0a0a;
-  font-family: 'Fredoka One', cursive;
-  font-size: 18px;
-  padding: 14px 24px;
-  border-radius: var(--radius-full);
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
-  letter-spacing: 0.5px;
-  margin-top: 8px;
-  width: 100%;
-}
-
-.ibpp-ticket-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(245,158,11,0.4);
-}
-
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .ibpp-hero-inner {
-    grid-template-columns: 340px 1fr;
-    gap: 40px;
-  }
-
-  .ibpp-expect-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
- .ibpp-hero {
-    margin-top: 150px;
-    padding: 40px 20px 48px;
-  }
-
-  .ibpp-hero-inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .ibpp-flyer-wrap {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .ibpp-title {
-    font-size: clamp(28px, 7vw, 44px);
-    white-space: normal;
-  }
-
-  .adulting-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .ibpp-adulting {
-    padding: 60px 0;
-  }
-
-  .ibpp-expect {
-    padding: 60px 0;
-  }
-
-  .ibpp-expect-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .ibpp-tickets-section {
-    padding: 60px 0;
-  }
-
-  .ibpp-ticket-card {
-    grid-template-columns: 1fr;
-  }
-
-  .ticket-left {
-    border-right: none;
-    border-bottom: 1px dashed rgba(255,255,255,0.15);
-  }
-}
-
-@media (max-width: 480px) {
-  .ibpp-title {
-    font-size: 42px;
-  }
-
-  .ibpp-cta-btn {
-    width: 100%;
-    text-align: center;
-  }
-}
-/* ── After Party Inline Form ── */
-.ibpp-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.ibpp-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.ibpp-form-group input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.08);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 14px;
-  transition: var(--transition);
-}
-
-.ibpp-form-group input::placeholder {
-  color: rgba(255,255,255,0.35);
-}
-
-.ibpp-form-group input:focus {
-  outline: none;
-  border-color: #F59E0B;
-  background: rgba(255,255,255,0.12);
-}
-
-.ibpp-form-group input.error {
-  border-color: #EF4444;
-}
-
-.ap-field-hint {
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  margin-top: 2px;
-}
-
-.ap-total-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(245,158,11,0.1);
-  border: 1px solid rgba(245,158,11,0.3);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 15px;
-  font-weight: 800;
-  color: #F59E0B;
-}
-
-/* Success state */
-.ap-success {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.ap-success-icon {
-  width: 56px;
-  height: 56px;
-  background: #D1FAE5;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin: 0 auto 12px;
-  color: #065F46;
-  font-weight: 700;
-}
-
-.ap-success h4 {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-
-.ap-success p {
-  font-size: 13px;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.6;
-}
-/* ── Ticket Tiers Grid ── */
 .ibpp-section-title-dark {
   font-family: var(--font-heading);
   font-size: clamp(28px, 4vw, 44px);
-  color: var(--purple);
+  color: var(--white);
   text-align: center;
   margin-bottom: 12px;
 }
 
 .ibpp-section-sub-dark {
   font-size: 16px;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.7);
   text-align: center;
   margin-bottom: 48px;
   line-height: 1.7;
@@ -709,7 +431,7 @@
   font-weight: 600;
 }
 
-/* Reservation box */
+/* ── Reservation Box ── */
 .ibpp-reservation-box {
   background: var(--white);
   border: 1.5px solid rgba(245,158,11,0.3);
@@ -776,11 +498,30 @@
   transform: translateY(-1px);
 }
 
-/* Form styles on white background */
+/* ── After Party Inline Form ── */
+.ibpp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.ibpp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .ibpp-form-group input {
-  border-color: #E5E7EB;
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: var(--transition);
 }
 
 .ibpp-form-group input::placeholder {
@@ -788,14 +529,52 @@
 }
 
 .ibpp-form-group input:focus {
+  outline: none;
   border-color: var(--purple);
-  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(91,45,142,0.1);
+}
+
+.ibpp-form-group input.error {
+  border-color: #EF4444;
+}
+
+.ap-field-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
 }
 
 .ap-total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--purple-pale);
   border: 1px solid var(--purple-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 800;
   color: var(--purple);
+}
+
+.ibpp-ticket-btn {
+  background: linear-gradient(135deg, #F59E0B, #f97316);
+  color: #1F1F2E;
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  padding: 14px 24px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.ibpp-ticket-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245,158,11,0.4);
 }
 
 .ap-secure-note {
@@ -805,23 +584,118 @@
   text-align: center;
 }
 
+/* ── Success State ── */
+.ap-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.ap-success-icon {
+  width: 56px;
+  height: 56px;
+  background: #D1FAE5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 12px;
+  color: #065F46;
+  font-weight: 700;
+  line-height: 56px;
+  text-align: center;
+}
+
 .ap-success h4 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
   color: var(--purple);
+  margin-bottom: 8px;
 }
 
 .ap-success p {
+  font-size: 13px;
   color: var(--text-muted);
+  line-height: 1.6;
 }
 
-/* Responsive */
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .ibpp-hero-inner {
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+  }
+
+  .ibpp-expect-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
+  .ibpp-hero {
+    margin-top: 150px;
+    padding: 40px 20px 48px;
+  }
+
+  .ibpp-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ibpp-flyer-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .ibpp-title {
+    font-size: clamp(28px, 7vw, 44px);
+  }
+
+  .ibpp-container {
+    padding: 0 20px;
+  }
+
+  .adulting-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ibpp-adulting {
+    padding: 60px 0;
+  }
+
+  .ibpp-expect {
+    padding: 60px 0;
+  }
+
+  .ibpp-expect-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ibpp-tickets-section {
+    padding: 60px 0;
+  }
+
   .ibpp-tiers-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
+  .ticket-left {
+    border-right: none;
+    border-bottom: 1px dashed rgba(255,255,255,0.15);
+  }
+
+  .ibpp-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
   .ibpp-title {
-    white-space: normal;
-    font-size: clamp(36px, 8vw, 52px);
+    font-size: clamp(26px, 8vw, 36px);
   }
 }

@@ -87,9 +87,13 @@
     <div class="ibpp-hero-inner">
 
       <!-- Left: Flyer image -->
-      <h1 class="ibpp-title">
-          I BE PERSON PIKIN
-        </h1>
+      <div class="ibpp-flyer-wrap">
+        <img
+          src="assets/images/ibpp-flyer.jpeg"
+          alt="I Be Person Pikin Flyer"
+          class="ibpp-flyer"
+        />
+      </div>
 
       <!-- Right: Text content -->
       <div class="ibpp-hero-text">
@@ -283,68 +287,65 @@
   </section>
 
 
-<section class="ibpp-hero">
-    <div class="ibpp-hero-inner">
+  <!-- ============================================
+    TICKET SECTION
+  ============================================ -->
+  <section class="ibpp-tickets-section" id="ibpp-tickets">
+    <div class="ibpp-container">
+      <h2 class="ibpp-section-title white">
+        Get Your Ticket
+      </h2>
+      <p class="ibpp-section-sub white">
+        Limited spots. Do not wait until it sells out.
+      </p>
 
-      <!-- Left: Flyer image -->
-      <div class="ibpp-flyer-wrap">
-        <img
-          src="assets/images/ibpp-flyer.jpeg"
-          alt="I Be Person Pikin Flyer"
-          class="ibpp-flyer"
-        />
-      </div>
-
-      <!-- Right: Text content -->
-      <div class="ibpp-hero-text">
-
-        <div class="ibpp-tag">
-          WoW Children's Day Fiesta 2026
+      <div class="ibpp-ticket-card">
+        <div class="ticket-left">
+          <p class="ticket-event-name">
+            I Be Person Pikin
+          </p>
+          <h3 class="ticket-price">₦3,000</h3>
+          <p class="ticket-per">per adult</p>
+          <ul class="ticket-includes">
+            <li>✓ Full event access</li>
+            <li>✓ Live music &amp; DJ</li>
+            <li>✓ Adult play zones</li>
+            <li>✓ Photo booths</li>
+            <li>✓ Surprises on the night</li>
+          </ul>
         </div>
-
-        <h1 class="ibpp-title">
-          I BE PERSON PIKIN
-        </h1>
-
-        <p class="ibpp-subtitle">
-          Children's Day For The Grown &amp; Tired.
-        </p>
-
-        <p class="ibpp-desc">
-          A festival experience for adults who deserve
-          a break from bills, pressure, work, and
-          "responsibility."
-        </p>
-
-        <div class="ibpp-event-details">
-          <div class="ibpp-detail-row">
-            <span class="ibpp-detail-icon">📅</span>
-            <span>Wednesday, May 27th, 2026</span>
+        <div class="ticket-right">
+          <div class="ticket-detail">
+            <span>📅</span>
+            <span>Wednesday, 27 May 2026</span>
           </div>
-          <div class="ibpp-detail-row">
-            <span class="ibpp-detail-icon">⏰</span>
+          <div class="ticket-detail">
+            <span>⏰</span>
             <span>7PM Till Late</span>
           </div>
-          <div class="ibpp-detail-row">
-            <span class="ibpp-detail-icon">📍</span>
-            <span>2 Amara-Olu Street, off Lateef
-              Jakande Road, Agidingbi, Ikeja, Lagos
-            </span>
+          <div class="ticket-detail">
+            <span>📍</span>
+            <span>Agidingbi, Ikeja, Lagos</span>
           </div>
+          <div class="ticket-detail">
+            <span>🎟</span>
+            <span>Adults Only (18+)</span>
+          </div>
+          <button class="ibpp-ticket-btn"
+            onclick="window.location.href='index.html#register'">
+            GET TICKETS NOW
+          </button>
+          <p style="
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 10px;
+            text-align: center;
+          ">
+            Limited tickets available
+          </p>
         </div>
-
-        <button class="ibpp-cta-btn"
-          onclick="document.getElementById('ibpp-tickets')
-            .scrollIntoView({behavior:'smooth'})">
-          GET TICKETS NOW
-        </button>
-
-        <p class="ibpp-cta-small">
-          Limited tickets available &nbsp;•&nbsp;
-          Adults only &nbsp;•&nbsp; 7PM Till Late
-        </p>
-
       </div>
+
     </div>
   </section>
 
