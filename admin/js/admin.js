@@ -274,6 +274,7 @@ async function loadAllRegistrations() {
     if (error) throw error;
 
     allRegistrations = data || [];
+    updateRegStats(allRegistrations); // ← add this line
     renderRegistrations(allRegistrations);
 
     console.log('✓ Registrations loaded:', data.length);
@@ -1155,3 +1156,21 @@ async function initAdminPage() {
 
 // Run on every page load
 initAdminPage();
+
+/* ── Registrations Stats ── */
+function updateRegStats(data) {
+  const total    = data.length;
+  const revenue  = data.reduce((s, r) => s + (r.amount_paid  || 0), 0);
+  const adults   = data.reduce((s, r) => s + (r.num_adults   || 0), 0);
+  const children = data.reduce((s, r) => s + (r.num_children || 0), 0);
+  const lagos    = data.filter(r => r.city === 'Lagos').length;
+  const ibadan   = data.filter(r => r.city === 'Ibadan').length;
+
+  const el = id => document.getElementById(id);
+  if (el('stat-total'))    el('stat-total').textContent    = total.toLocaleString();
+  if (el('stat-revenue'))  el('stat-revenue').textContent  = `₦${revenue.toLocaleString()}`;
+  if (el('stat-adults'))   el('stat-adults').textContent   = adults.toLocaleString();
+  if (el('stat-children')) el('stat-children').textContent = children.toLocaleString();
+  if (el('stat-lagos'))    el('stat-lagos').textContent    = lagos.toLocaleString();
+  if (el('stat-ibadan'))   el('stat-ibadan').textContent   = ibadan.toLocaleString();
+}

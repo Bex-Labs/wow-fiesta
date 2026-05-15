@@ -1287,3 +1287,63 @@ a { text-decoration: none; color: inherit; }
     padding: 24px 20px;
   }
 }
+
+/* ── Registrations Stats Strip ── */
+.reg-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin: 0 24px 24px;
+}
+
+.reg-stat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid #F3F4F6;
+  border-top: 4px solid #5B2D8E;
+}
+
+.reg-stat-card:nth-child(2) { border-top-color: #10B981; }
+.reg-stat-card:nth-child(3) { border-top-color: #3B82F6; }
+.reg-stat-card:nth-child(4) { border-top-color: #F59E0B; }
+.reg-stat-card:nth-child(5) { border-top-color: #6366F1; }
+.reg-stat-card:nth-child(6) { border-top-color: #EAB308; }
+
+.reg-stat-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.reg-stat-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 24px;
+  color: #1F1F2E;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.reg-stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 1200px) {
+  .reg-stats-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .reg-stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 16px 16px;
+  }
+}
