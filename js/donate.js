@@ -4,6 +4,9 @@
 
 const DONATE_PAYSTACK_KEY = 'pk_live_067f3190cefbd0eff300e721342e112e57490a3f';
 
+const SUPABASE_URL  = 'https://lnkdnmnrbxtqyhitqwvg.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_kcLdNDW2wPmFd2FDW4mSXA_LtBPugzW';
+
 // Load Paystack
 (function () {
   const s = document.createElement('script');
@@ -17,10 +20,10 @@ function updateCountdown() {
   const diff = window.EVENT_DATE - new Date();
   if (diff <= 0) return;
   const pad = n => String(n).padStart(2, '0');
-  document.getElementById('cd-days').textContent = pad(Math.floor(diff / 86400000));
+  document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
   document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-  document.getElementById('cd-mins').textContent = pad(Math.floor((diff % 3600000) / 60000));
-  document.getElementById('cd-secs').textContent = pad(Math.floor((diff % 60000) / 1000));
+  document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+  document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
@@ -37,95 +40,86 @@ window.addEventListener('scroll', () => {
 // Hamburger
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
-  const ham = document.getElementById('hamburger');
+  const ham  = document.getElementById('hamburger');
   menu.classList.toggle('open');
   ham.setAttribute('aria-expanded', menu.classList.contains('open'));
 }
 function closeMenu() {
   const menu = document.getElementById('mobileMenu');
-  const ham = document.getElementById('hamburger');
+  const ham  = document.getElementById('hamburger');
   menu.classList.remove('open');
   ham.setAttribute('aria-expanded', 'false');
 }
 document.addEventListener('click', e => {
   const menu = document.getElementById('mobileMenu');
-  const ham = document.getElementById('hamburger');
-  if (menu?.classList.contains('open') && !menu.contains(e.target) && !ham?.contains(e.target)) closeMenu();
+  const ham  = document.getElementById('hamburger');
+  if (
+    menu?.classList.contains('open') &&
+    !menu.contains(e.target) &&
+    !ham?.contains(e.target)
+  ) closeMenu();
 });
 
 // Amount selection
 let selectedAmount = 0;
 
 function selectAmount(btn, amount) {
-  document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.amount-btn')
+    .forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   selectedAmount = amount;
   document.getElementById('custom-amount').value = '';
 }
 
 function setCustomAmount(val) {
-  document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.amount-btn')
+    .forEach(b => b.classList.remove('selected'));
   selectedAmount = parseInt(val) || 0;
 }
 
 // Generate ref
 function generateDonateRef() {
-  const ts = Date.now().toString(36).toUpperCase();
+  const ts  = Date.now().toString(36).toUpperCase();
   const rnd = Math.random().toString(36).substring(2, 6).toUpperCase();
   return `DONATE-${ts}-${rnd}`;
 }
 
-// Handle donation
-function handleDonation() {
-  const name = document.getElementById('donor-name').value.trim();
-  const email = document.getElementById('donor-email').value.trim();
-  const customVal = parseInt(document.getElementById('custom-amount').value) || 0;
-  const amount = selectedAmount || customVal;
+/* ── Save donation to Supabase ── */
+async function saveDonationToSupabase(donationData) {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/donations`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        SUPABASE_ANON,
+          'Authorization': `Bearer ${SUPABASE_ANON}`,
+          'Prefer':        'return=minimal'
+        },
+        body: JSON.stringify(donationData)
+      }
+    );
 
-  if (!name) {
-    alert('Please enter your name.');
-    return;
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(err);
+    }
+
+    console.log('✓ Donation saved to Supabase');
+
+  } catch (err) {
+    console.error('✗ Could not save donation:', err.message);
+    // Payment already succeeded — fail silently
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-  if (amount < 100) {
-    alert('Minimum donation is ₦100.');
-    return;
-  }
+}
 
-  const ref = generateDonateRef();
-  const btn = document.getElementById('donate-btn');
-  btn.textContent = 'Processing...';
-  btn.disabled = true;
+/* ── Show thank you screen ── */
+function showDonationSuccess(name, email, amount, reference) {
+  const card = document.querySelector('.donate-card');
+  if (!card) return;
 
-  const handler = PaystackPop.setup({
-    key: DONATE_PAYSTACK_KEY,
-    email: email,
-    amount: amount * 100,
-    currency: 'NGN',
-    ref: ref,
-    metadata: {
-      custom_fields: [
-        { display_name: 'Full Name', value: name },
-        { display_name: 'Type', value: 'Donation' },
-        { display_name: 'Reference', value: ref }
-      ]
-    },
-    callback: function (response) {
-  // Save donation to Supabase
-  await saveDonationToSupabase({
-    full_name:         name,
-    email:             email,
-    amount:            amount,
-    payment_reference: response.reference || ref,
-    payment_status:    'success',
-    donation_type:     'paystack'
-  });
-
-  // Show thank you message
-  document.querySelector('.donate-card').innerHTML = `
+  card.innerHTML = `
     <div style="
       padding: 80px 40px;
       text-align: center;
@@ -153,50 +147,68 @@ function handleDonation() {
         Confirmation sent to <strong>${email}</strong>
       </p>
       <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
-        Reference: ${response.reference || ref}
+        Reference: ${reference}
       </p>
     </div>
   `;
-},
+}
+
+/* ── Handle donation ── */
+function handleDonation() {
+  const name      = document.getElementById('donor-name').value.trim();
+  const email     = document.getElementById('donor-email').value.trim();
+  const customVal = parseInt(document.getElementById('custom-amount').value) || 0;
+  const amount    = selectedAmount || customVal;
+
+  if (!name) {
+    alert('Please enter your name.');
+    return;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  if (amount < 100) {
+    alert('Minimum donation is ₦100.');
+    return;
+  }
+
+  const ref = generateDonateRef();
+  const btn = document.getElementById('donate-btn');
+  btn.textContent = 'Processing...';
+  btn.disabled    = true;
+
+  const handler = PaystackPop.setup({
+    key:      DONATE_PAYSTACK_KEY,
+    email:    email,
+    amount:   amount * 100,
+    currency: 'NGN',
+    ref:      ref,
+    metadata: {
+      custom_fields: [
+        { display_name: 'Full Name', value: name },
+        { display_name: 'Type',      value: 'Donation' },
+        { display_name: 'Reference', value: ref }
+      ]
+    },
+    callback: function (response) {
+      // Save to Supabase then show thank you
+      saveDonationToSupabase({
+        full_name:         name,
+        email:             email,
+        amount:            amount,
+        payment_reference: response.reference || ref,
+        payment_status:    'success',
+        donation_type:     'paystack'
+      });
+
+      showDonationSuccess(name, email, amount, response.reference || ref);
+    },
     onClose: function () {
       btn.textContent = '💛 DONATE NOW';
-      btn.disabled = false;
+      btn.disabled    = false;
     }
   });
-  
-/* ── Save donation to Supabase ── */
-async function saveDonationToSupabase(donationData) {
-  try {
-    const SUPABASE_URL  = 'https://lnkdnmnrbxtqyhitqwvg.supabase.co';
-    const SUPABASE_ANON = 'sb_publishable_kcLdNDW2wPmFd2FDW4mSXA_LtBPugzW';
 
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/donations`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'apikey':        SUPABASE_ANON,
-          'Authorization': `Bearer ${SUPABASE_ANON}`,
-          'Prefer':        'return=minimal'
-        },
-        body: JSON.stringify(donationData)
-      }
-    );
-
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(err);
-    }
-
-    console.log('✓ Donation saved to Supabase');
-
-  } catch (err) {
-    console.error('✗ Could not save donation:', err.message);
-    // Payment already succeeded so don't alert the user
-    // just log the error silently
-  }
-}
   handler.openIframe();
 }
-
