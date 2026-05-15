@@ -114,49 +114,89 @@ function handleDonation() {
       ]
     },
     callback: function (response) {
-      document.querySelector('.donate-card').innerHTML = `
-        <div style="
-          padding: 80px 40px;
-          text-align: center;
-          width: 100%;
-        ">
-          <div style="
-            font-size: 64px;
-            margin-bottom: 20px;
-          ">💛</div>
-          <h2 style="
-            font-family: 'Fredoka One', cursive;
-            font-size: 36px;
-            color: var(--purple);
-            margin-bottom: 12px;
-          ">Thank You, ${name}!</h2>
-          <p style="
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.8;
-            max-width: 500px;
-            margin: 0 auto 20px;
-          ">
-            Your donation of <strong>₦${amount.toLocaleString()}</strong> has been received.
-            You are helping make the magic real for children across Lagos.
-          </p>
-          <p style="
-            font-size: 13px;
-            color: var(--text-muted);
-          ">Confirmation sent to <strong>${email}</strong></p>
-          <p style="
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 8px;
-          ">Reference: ${ref}</p>
-        </div>
-      `;
-    },
+  // Save donation to Supabase
+  await saveDonationToSupabase({
+    full_name:         name,
+    email:             email,
+    amount:            amount,
+    payment_reference: response.reference || ref,
+    payment_status:    'success',
+    donation_type:     'paystack'
+  });
+
+  // Show thank you message
+  document.querySelector('.donate-card').innerHTML = `
+    <div style="
+      padding: 80px 40px;
+      text-align: center;
+      width: 100%;
+    ">
+      <div style="font-size: 64px; margin-bottom: 20px;">💛</div>
+      <h2 style="
+        font-family: 'Fredoka One', cursive;
+        font-size: 36px;
+        color: var(--purple);
+        margin-bottom: 12px;
+      ">Thank You, ${name}!</h2>
+      <p style="
+        font-size: 16px;
+        color: var(--text-muted);
+        line-height: 1.8;
+        max-width: 500px;
+        margin: 0 auto 20px;
+      ">
+        Your donation of <strong>₦${amount.toLocaleString()}</strong>
+        has been received. You are helping make the magic real
+        for children across Lagos.
+      </p>
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Confirmation sent to <strong>${email}</strong>
+      </p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+        Reference: ${response.reference || ref}
+      </p>
+    </div>
+  `;
+},
     onClose: function () {
       btn.textContent = '💛 DONATE NOW';
       btn.disabled = false;
     }
   });
+  
+/* ── Save donation to Supabase ── */
+async function saveDonationToSupabase(donationData) {
+  try {
+    const SUPABASE_URL  = 'https://lnkdnmnrbxtqyhitqwvg.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_kcLdNDW2wPmFd2FDW4mSXA_LtBPugzW';
 
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/donations`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        SUPABASE_ANON,
+          'Authorization': `Bearer ${SUPABASE_ANON}`,
+          'Prefer':        'return=minimal'
+        },
+        body: JSON.stringify(donationData)
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(err);
+    }
+
+    console.log('✓ Donation saved to Supabase');
+
+  } catch (err) {
+    console.error('✗ Could not save donation:', err.message);
+    // Payment already succeeded so don't alert the user
+    // just log the error silently
+  }
+}
   handler.openIframe();
 }
+

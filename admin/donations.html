@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registrations — WoW Fiesta Admin</title>
+  <title>Donations — WoW Fiesta Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/admin.css" />
 </head>
@@ -21,8 +21,11 @@
       <a href="events.html" class="nav-item">
         <span class="nav-icon">📅</span><span>Events</span>
       </a>
-      <a href="registrations.html" class="nav-item active">
+      <a href="registrations.html" class="nav-item">
         <span class="nav-icon">🎟</span><span>Registrations</span>
+      </a>
+      <a href="donations.html" class="nav-item active">
+        <span class="nav-icon">💛</span><span>Donations</span>
       </a>
       <a href="gallery.html" class="nav-item">
         <span class="nav-icon">🖼</span><span>Gallery</span>
@@ -32,9 +35,6 @@
       </a>
       <a href="about.html" class="nav-item">
         <span class="nav-icon">ℹ️</span><span>About</span>
-      </a>
-      <a href="donations.html" class="nav-item">
-      <span class="nav-icon">💛</span><span>Donations</span>
       </a>
     </nav>
     <div class="sidebar-bottom">
@@ -50,11 +50,43 @@
   <main class="admin-main">
     <div class="admin-topbar">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h2 class="page-title">Registrations</h2>
+      <h2 class="page-title">Donations</h2>
       <div class="topbar-right">
-        <button class="btn-export" onclick="exportCSV()">
+        <button class="btn-export" onclick="exportDonationsCSV()">
           ⬇ Export CSV
         </button>
+      </div>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="reg-stats-strip">
+      <div class="reg-stat-card">
+        <span class="reg-stat-icon">💛</span>
+        <div>
+          <p class="reg-stat-num" id="don-total">—</p>
+          <p class="reg-stat-label">Total Donations</p>
+        </div>
+      </div>
+      <div class="reg-stat-card">
+        <span class="reg-stat-icon">💰</span>
+        <div>
+          <p class="reg-stat-num" id="don-revenue">—</p>
+          <p class="reg-stat-label">Total Raised</p>
+        </div>
+      </div>
+      <div class="reg-stat-card">
+        <span class="reg-stat-icon">📈</span>
+        <div>
+          <p class="reg-stat-num" id="don-average">—</p>
+          <p class="reg-stat-label">Average Donation</p>
+        </div>
+      </div>
+      <div class="reg-stat-card">
+        <span class="reg-stat-icon">🏆</span>
+        <div>
+          <p class="reg-stat-num" id="don-highest">—</p>
+          <p class="reg-stat-label">Highest Donation</p>
+        </div>
       </div>
     </div>
 
@@ -62,72 +94,11 @@
     <div class="filters-bar">
       <input
         type="text"
-        id="search-input"
+        id="don-search"
         placeholder="Search by name or email..."
-        oninput="filterRegistrations()"
+        oninput="filterDonations()"
         class="filter-input"
       />
-      <select id="filter-city"
-        onchange="filterRegistrations()"
-        class="filter-select">
-        <option value="">All Cities</option>
-        <option value="Lagos">Lagos</option>
-        <option value="Ibadan">Ibadan</option>
-      </select>
-      <select id="filter-status"
-        onchange="filterRegistrations()"
-        class="filter-select">
-        <option value="">All Status</option>
-        <option value="success">Success</option>
-        <option value="pending">Pending</option>
-        <option value="free">Free</option>
-      </select>
-    </div>
-    
-    <!-- Stats Strip -->
-    <div class="reg-stats-strip">
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">🎟</span>
-        <div>
-          <p class="reg-stat-num" id="stat-total">—</p>
-          <p class="reg-stat-label">Total Bookings</p>
-        </div>
-      </div>
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">💰</span>
-        <div>
-          <p class="reg-stat-num" id="stat-revenue">—</p>
-          <p class="reg-stat-label">Total Revenue</p>
-        </div>
-      </div>
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">👨‍👩‍👧</span>
-        <div>
-          <p class="reg-stat-num" id="stat-adults">—</p>
-          <p class="reg-stat-label">Total Adults</p>
-        </div>
-      </div>
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">👦</span>
-        <div>
-          <p class="reg-stat-num" id="stat-children">—</p>
-          <p class="reg-stat-label">Total Children</p>
-        </div>
-      </div>
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">🏙</span>
-        <div>
-          <p class="reg-stat-num" id="stat-lagos">—</p>
-          <p class="reg-stat-label">Lagos</p>
-        </div>
-      </div>
-      <div class="reg-stat-card">
-        <span class="reg-stat-icon">🌆</span>
-        <div>
-          <p class="reg-stat-num" id="stat-ibadan">—</p>
-          <p class="reg-stat-label">Ibadan</p>
-        </div>
-      </div>
     </div>
 
     <!-- Table -->
@@ -136,34 +107,32 @@
         <table class="admin-table">
           <thead>
             <tr>
-              <th>Booking Ref</th>
+              <th>#</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Phone</th>
-              <th>City</th>
-              <th>Children</th>
-              <th>Adults</th>
               <th>Amount</th>
-              <th>Payment</th>
+              <th>Payment Ref</th>
               <th>Status</th>
               <th>Date</th>
             </tr>
           </thead>
-          <tbody id="reg-tbody">
+          <tbody id="don-tbody">
             <tr>
-              <td colspan="11" class="table-loading">
-                Loading registrations...
+              <td colspan="7" class="table-loading">
+                Loading donations...
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="table-count" id="reg-count"></p>
+      <p class="table-count" id="don-count"></p>
     </div>
 
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/admin.js"></script>
+  <script src="js/donations-admin.js"></script>
+
 </body>
 </html>
