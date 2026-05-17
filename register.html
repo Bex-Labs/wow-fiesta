@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Book your tickets for WoW Children's Day Fiesta in Lagos & Ibadan. Adults ₦3,000 · Children & PWDs always FREE." />
+  <title>Book Tickets — WoW Children's Day Fiesta</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/register.css" />
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ============================================
+    COUNTDOWN BANNER (fixed top)
+  ============================================ -->
+  <div class="countdown-banner">
+    <div class="countdown-inner">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-lbl">DAYS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-lbl">HOURS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-lbl">MINS</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-lbl">SECS</span>
+      </div>
+    </div>
+    <p class="cd-tagline">✦ UNTIL THE MAGIC UNFOLDS ✦</p>
+  </div>
+
+
+  <!-- ============================================
+    NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <img src="assets/logo.png" alt="WoW Fiesta Logo" class="logo-img" />
+      <span class="logo-text">WoW Fiesta</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html"         class="nav-link">Home</a></li>
+      <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="register.html"      class="nav-link active">Register</a></li>
+      <li><a href="index.html#about"   class="nav-link">About</a></li>
+      <li><a href="after-party.html"   class="nav-link">After Party</a></li>
+      <li><a href="donate.html"        class="nav-link">Donate</a></li>
+    </ul>
+    <button class="nav-book-btn" onclick="scrollToForm()">Book Ticket</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile dropdown -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"         onclick="closeMenu()">Home</a>
+    <a href="index.html#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="register.html"      onclick="closeMenu()">Register</a>
+    <a href="index.html#about"   onclick="closeMenu()">About</a>
+    <a href="after-party.html"   onclick="closeMenu()">After Party</a>
+    <a href="donate.html"        onclick="closeMenu()">Donate</a>
+  </div>
+
+
+  <!-- ============================================
+    PAGE SHELL
+  ============================================ -->
+  <div class="reg-shell">
+
+    <!-- Urgency strip -->
+    <div class="urgency-strip">
+      <span class="urgency-dot"></span>
+      <span><strong>Only 10 spots remaining</strong> — registration closes once full.</span>
+      <button class="urgency-link" onclick="scrollToForm()">Book now →</button>
+    </div>
+
+
+    <!-- ============================================
+      PRODUCT LAYOUT: image left · details right
+    ============================================ -->
+    <div class="product-wrap">
+
+
+      <!-- ── LEFT: Event poster ── -->
+      <div class="product-image-col">
+
+        <div class="product-image-frame">
+          <img
+            src="assets/images/hero-children.png"
+            alt="WoW Children's Day Fiesta — children celebrating"
+          />
+        </div>
+
+        <!-- Mini countdown under image -->
+        <div class="image-countdown-badge">
+          <span class="icd-label">Event in</span>
+          <div class="icd-units">
+            <div class="icd-unit">
+              <span class="icd-num" id="icd-days">00</span>
+              <span class="icd-lbl">Days</span>
+            </div>
+            <span class="icd-sep">:</span>
+            <div class="icd-unit">
+              <span class="icd-num" id="icd-hours">00</span>
+              <span class="icd-lbl">Hrs</span>
+            </div>
+            <span class="icd-sep">:</span>
+            <div class="icd-unit">
+              <span class="icd-num" id="icd-mins">00</span>
+              <span class="icd-lbl">Min</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ── RIGHT: Details & booking form ── -->
+      <div class="product-details-col" id="product-details-col">
+
+        <!-- Eyebrow -->
+        <p class="product-eyebrow">WoW Children's Day Fiesta · 10th Anniversary</p>
+
+        <!-- Title -->
+        <h1 class="product-title">
+          WoW Fiesta 2026 — Lagos &amp; Ibadan
+        </h1>
+
+        <!-- Price row -->
+        <div class="product-price-row">
+          <span class="price-was">₦5,000</span>
+          <span class="price-now">₦3,000</span>
+          <span class="price-free-tag">Kids FREE</span>
+        </div>
+
+        <!-- Valued badge -->
+        <div class="valued-badge">
+          <span class="vb-top">PRICED LOW</span>
+          <span class="vb-bottom">MADE FOR FAMILIES</span>
+        </div>
+
+        <!-- Description -->
+        <p class="product-desc">
+          If you could give your child one perfect day — what would it look like?
+        </p>
+        <p class="product-desc">
+          An extraordinary day where imagination takes flight.
+          Giant inflatable castles, live performances, creative
+          workshops, food stalls and non-stop fun — designed
+          specially for children.
+        </p>
+        <p class="product-desc-highlight">
+          <strong>This event is made available at near cost price. Not <em>'for profit'</em>, but <em>'for families'</em>.</strong>
+        </p>
+
+        <div class="pd-divider"></div>
+
+        <!-- ── BOOKING FORM ── -->
+        <div id="reg-form-card">
+
+          <div class="booking-form">
+
+            <!-- City & Date -->
+            <div class="bf-group">
+              <label for="city-select">Select City &amp; Date</label>
+              <select id="city-select">
+                <option value="">— Choose your city —</option>
+              </select>
+            </div>
+
+            <!-- Name -->
+            <div class="bf-group">
+              <label for="full-name">Full Name</label>
+              <input type="text" id="full-name" placeholder="Your full name" />
+            </div>
+
+            <!-- Email + Phone -->
+            <div class="bf-row">
+              <div class="bf-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="you@email.com" />
+              </div>
+              <div class="bf-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="08012345678" />
+              </div>
+            </div>
+
+            <!-- Children tickets -->
+            <div class="ticket-line">
+              <div class="tl-info">
+                <span class="tl-name">Children &amp; PWDs</span>
+                <span class="tl-price free">Always FREE</span>
+              </div>
+              <div class="tl-stepper">
+                <button type="button" onclick="stepTicket('num-children',-1)" aria-label="Remove">−</button>
+                <input type="number" id="num-children" value="0" min="0" max="50" oninput="updatePriceSummary()" />
+                <button type="button" onclick="stepTicket('num-children',1)"  aria-label="Add">+</button>
+              </div>
+            </div>
+
+            <!-- Adults tickets -->
+            <div class="ticket-line">
+              <div class="tl-info">
+                <span class="tl-name">
+                  Adults
+                  <span class="adult-price-label hidden" id="adult-price-label"></span>
+                </span>
+                <span class="tl-price" id="adults-hint">Select city to see price</span>
+              </div>
+              <div class="tl-stepper">
+                <button type="button" onclick="stepTicket('num-adults',-1)" aria-label="Remove">−</button>
+                <input type="number" id="num-adults" value="0" min="0" max="20" oninput="updatePriceSummary()" />
+                <button type="button" onclick="stepTicket('num-adults',1)"  aria-label="Add">+</button>
+              </div>
+            </div>
+
+            <!-- Live price summary -->
+            <div class="price-summary-box" id="price-summary"></div>
+
+          </div>
+          <!-- end booking-form -->
+
+          <!-- CTA Button -->
+          <button
+            class="btn-add-to-bag"
+            id="book-btn"
+            onclick="handleRegistration()">
+            Book Now — Secure My Spot
+          </button>
+
+          <!-- Secured note -->
+          <p class="secured-note">🔒 Secured by Paystack · Instant confirmation</p>
+
+          <!-- Venue availability -->
+          <div class="pd-divider"></div>
+
+          <div class="venue-info" id="venue-info-lagos">
+            <div class="vi-title">
+              <span class="vi-check">✓</span>
+              Event available in Lagos &amp; Ibadan
+            </div>
+            <p class="vi-sub" id="vi-sub-lagos">
+              Lagos — Wednesday, 27 May 2026
+            </p>
+            <p class="vi-sub" id="vi-sub-ibadan">
+              Ibadan — Saturday, 30 May 2026
+            </p>
+          </div>
+
+          <p class="shipping-note">
+            <a href="#" onclick="return false;">Children &amp; PWDs</a> always enter FREE.
+            Adults ₦3,000 per ticket. Payment processed securely at checkout.
+          </p>
+
+          <div class="pd-divider"></div>
+
+          <!-- Event Details accordion -->
+          <div class="details-accordion">
+            <button class="accordion-trigger" id="acc-btn" onclick="toggleAccordion()">
+              Event details
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-body" id="acc-body">
+              <div class="acc-grid">
+                <div class="acc-item">
+                  <span class="acc-icon-sm">🏰</span>
+                  Bouncy castles &amp; inflatables
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">🎨</span>
+                  Face painting &amp; art stations
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">🎭</span>
+                  Live shows &amp; storytelling
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">🍭</span>
+                  Food stalls &amp; refreshments
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">📸</span>
+                  Professional photo booths
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">♿</span>
+                  Fully accessible &amp; inclusive
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">🎟</span>
+                  Ages 0–17 enter FREE
+                </div>
+                <div class="acc-item">
+                  <span class="acc-icon-sm">⚡</span>
+                  Instant booking confirmation
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Share -->
+          <div class="share-row" onclick="shareEvent()">
+            <span class="share-icon">⬆</span>
+            SHARE
+          </div>
+
+        </div>
+        <!-- end #reg-form-card -->
+
+      </div>
+      <!-- end product-details-col -->
+
+    </div>
+    <!-- end product-wrap -->
+
+
+    <!-- ============================================
+      FOOTER
+    ============================================ -->
+    <footer class="reg-footer">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <span class="logo-text">WoW Fiesta</span>
+          <p>Celebrating Childhood Wonder Since 2015</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#highlights">Schedule</a>
+          <a href="index.html#gallery">Gallery</a>
+          <a href="index.html#about">About</a>
+          <a href="register.html">Register</a>
+          <a href="donate.html">Donate</a>
+        </div>
+        <p class="footer-copy">© 2025 WoW Children's Day Fiesta. All rights reserved.</p>
+      </div>
+    </footer>
+
+  </div>
+  <!-- end .reg-shell -->
+
+
+  <!-- ============================================
+    MOBILE BOTTOM NAV
+  ============================================ -->
+  <nav class="bottom-nav">
+    <a href="index.html"         class="bottom-nav-item">
+      <span class="bnav-icon">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <a href="index.html#gallery" class="bottom-nav-item">
+      <span class="bnav-icon">🖼</span>
+      <span class="bnav-label">Gallery</span>
+    </a>
+    <a href="register.html"      class="bottom-nav-item active">
+      <span class="bnav-icon">🎟</span>
+      <span class="bnav-label">Register</span>
+    </a>
+    <a href="donate.html"        class="bottom-nav-item">
+      <span class="bnav-icon">💛</span>
+      <span class="bnav-label">Donate</span>
+    </a>
+  </nav>
+
+
+  <!-- JavaScript -->
+  <script src="js/register.js"></script>
+
+  <!-- Accordion + Share (page-specific extras) -->
+  <script>
+    function toggleAccordion() {
+      const btn  = document.getElementById('acc-btn');
+      const body = document.getElementById('acc-body');
+      btn.classList.toggle('open');
+      body.classList.toggle('open');
+    }
+
+    function shareEvent() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'WoW Children\'s Day Fiesta 2026',
+          text:  'Join us for the most magical Children\'s Day celebration in Lagos & Ibadan! Adults ₦3,000 · Kids FREE.',
+          url:   window.location.href
+        }).catch(() => {});
+      } else {
+        const url = window.location.href;
+        navigator.clipboard?.writeText(url);
+        showToast('Link copied to clipboard!', 'success');
+      }
+    }
+  </script>
+
+</body>
+</html>
