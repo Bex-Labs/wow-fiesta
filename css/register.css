@@ -25,7 +25,10 @@
 
 /* ============================================
    URGENCY STRIP
-   Thin, high-contrast bar at top of page
+   Sticky so it stays visible just below the
+   fixed navbar — never scrolls behind it.
+   Navbar sits at top:90px with min-height 72px,
+   so this strip sticks at top:162px.
 ============================================ */
 .urgency-strip {
   background: #DC2626;
@@ -40,6 +43,15 @@
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+  position: sticky;
+  top: 162px;
+  z-index: 990;
+}
+
+@media (max-width: 768px) {
+  .urgency-strip {
+    top: 148px; /* countdown (82px) + navbar (66px) */
+  }
 }
 
 .urgency-dot {
