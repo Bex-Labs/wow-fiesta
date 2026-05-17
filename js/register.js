@@ -514,6 +514,9 @@ async function onPaymentSuccess(formData, gateway, txRef) {
   const amtDisplay = formData.totalAmount > 0
     ? `₦${formData.totalAmount.toLocaleString()}` : 'FREE';
 
+  // Show success popup modal first
+  showSuccessPopup(formData, amtDisplay);
+
   // Replace form card with receipt
   const card = document.getElementById('reg-form-card');
   if (!card) return;
@@ -814,3 +817,211 @@ document.querySelectorAll('.fade-section').forEach(el => {
     });
   }, { threshold: 0.08 }).observe(el);
 });
+
+/* ============================================
+   SUCCESS POPUP MODAL
+   Shows after payment — auto redirects home
+============================================ */
+function showSuccessPopup(formData, amtDisplay) {
+
+  const modal = document.createElement('div');
+  modal.id    = 'success-popup';
+  modal.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+    animation: spFadeIn 0.3s ease;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 36px;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+      animation: spSlideUp 0.4s ease;
+      position: relative;
+    ">
+
+      <!-- Confetti emoji top -->
+      <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+
+      <!-- Green tick circle -->
+      <div style="
+        width: 72px;
+        height: 72px;
+        background: #D1FAE5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 32px;
+        font-weight: 800;
+        color: #065F46;
+      ">✓</div>
+
+      <!-- Title -->
+      <h2 style="
+        font-family: 'Fredoka One', cursive;
+        font-size: 32px;
+        color: #5B2D8E;
+        margin-bottom: 8px;
+      ">Payment Successful!</h2>
+
+      <p style="
+        font-size: 15px;
+        color: #6B7280;
+        margin-bottom: 24px;
+        line-height: 1.7;
+      ">
+        Thank you, <strong>${formData.fullName}</strong>!<br/>
+        Your spot at WoW Fiesta 2026 is confirmed. 🌟
+      </p>
+
+      <!-- Booking details box -->
+      <div style="
+        background: #F9F5FF;
+        border: 1.5px solid #E9D5FF;
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        text-align: left;
+      ">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #E9D5FF">
+          <span style="color:#9CA3AF;font-size:13px;font-weight:600">Booking Ref</span>
+          <span style="font-family:monospace;font-weight:800;color:#5B2D8E;font-size:13px">${formData.bookingRef}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #E9D5FF">
+          <span style="color:#9CA3AF;font-size:13px;font-weight:600">City</span>
+          <span style="font-weight:700;font-size:13px;color:#1F1F2E">${formData.city}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #E9D5FF">
+          <span style="color:#9CA3AF;font-size:13px;font-weight:600">Adults</span>
+          <span style="font-weight:700;font-size:13px;color:#1F1F2E">${formData.numAdults}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #E9D5FF">
+          <span style="color:#9CA3AF;font-size:13px;font-weight:600">Children</span>
+          <span style="font-weight:700;font-size:13px;color:#1F1F2E">${formData.numChildren}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+          <span style="color:#9CA3AF;font-size:13px;font-weight:600">Amount Paid</span>
+          <span style="font-weight:800;font-size:15px;color:#059669">${amtDisplay}</span>
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:#9CA3AF;margin-bottom:16px;">
+        📧 Confirmation being sent to <strong>${formData.email}</strong>
+      </p>
+
+      <!-- Countdown -->
+      <p style="
+        font-size:13px;
+        color:#5B2D8E;
+        font-weight:700;
+        margin-bottom:20px;
+      " id="sp-countdown">
+        Returning to home page in 8 seconds...
+      </p>
+
+      <!-- Buttons -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button onclick="spGoHome()" style="
+          background: linear-gradient(135deg, #5B2D8E, #7C3AED);
+          color: #fff;
+          font-family: 'Fredoka One', cursive;
+          font-size: 18px;
+          padding: 14px 40px;
+          border-radius: 999px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          box-shadow: 0 4px 16px rgba(91,45,142,0.3);
+          transition: transform 0.2s;
+        " onmouseover="this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.transform='translateY(0)'">
+          🏠 Go to Home Page
+        </button>
+        <button onclick="spViewReceipt()" style="
+          background: transparent;
+          color: #5B2D8E;
+          font-family: 'Fredoka One', cursive;
+          font-size: 16px;
+          padding: 12px;
+          border-radius: 999px;
+          border: 2px solid #E9D5FF;
+          cursor: pointer;
+          width: 100%;
+          transition: all 0.2s;
+        " onmouseover="this.style.background='#F9F5FF'"
+           onmouseout="this.style.background='transparent'">
+          📄 View Full Receipt
+        </button>
+      </div>
+
+    </div>
+
+    <style>
+      @keyframes spFadeIn  { from{opacity:0} to{opacity:1} }
+      @keyframes spSlideUp {
+        from{transform:translateY(50px);opacity:0}
+        to{transform:translateY(0);opacity:1}
+      }
+      @keyframes spFadeOut { from{opacity:1} to{opacity:0} }
+    </style>
+  `;
+
+  document.body.appendChild(modal);
+  document.body.style.overflow = 'hidden';
+
+  // Countdown timer — 8 seconds
+  let seconds = 8;
+  const countEl = document.getElementById('sp-countdown');
+
+  const timer = setInterval(() => {
+    seconds--;
+    if (countEl) {
+      countEl.textContent = `Returning to home page in ${seconds} second${seconds !== 1 ? 's' : ''}...`;
+    }
+    if (seconds <= 0) {
+      clearInterval(timer);
+      spGoHome();
+    }
+  }, 1000);
+
+  // Store timer on modal so buttons can clear it
+  modal._timer = timer;
+}
+
+function spGoHome() {
+  const modal = document.getElementById('success-popup');
+  if (modal) {
+    if (modal._timer) clearInterval(modal._timer);
+    modal.style.animation = 'spFadeOut 0.3s ease forwards';
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      modal.remove();
+      window.location.href = 'index.html';
+    }, 300);
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+
+function spViewReceipt() {
+  const modal = document.getElementById('success-popup');
+  if (modal) {
+    if (modal._timer) clearInterval(modal._timer);
+    modal.style.animation = 'spFadeOut 0.3s ease forwards';
+    document.body.style.overflow = '';
+    setTimeout(() => modal.remove(), 300);
+  }
+}
