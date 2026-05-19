@@ -8,8 +8,10 @@ const AP_SUPABASE_ANON = 'sb_publishable_kcLdNDW2wPmFd2FDW4mSXA_LtBPugzW';
 
 /* ── Load Paystack ── */
 (function () {
-  const s = document.createElement('script');
-  s.src   = 'https://js.paystack.co/v1/inline.js';
+  const s   = document.createElement('script');
+  s.src     = 'https://js.paystack.co/v1/inline.js';
+  s.onload  = () => console.log('✓ Paystack ready');
+  s.onerror = () => console.error('✗ Paystack failed');
   document.head.appendChild(s);
 })();
 
@@ -145,6 +147,13 @@ function handleAPPayment(type, pricePerUnit, ticketType) {
   btn.textContent = 'Processing...';
   btn.disabled    = true;
 
+  if (typeof PaystackPop === 'undefined') {
+    alert('Payment is still loading, please try again.');
+    btn.textContent = '💳 Pay Now';
+    btn.disabled    = false;
+    return;
+  }
+
   PaystackPop.setup({
     key:      AP_PAYSTACK_KEY,
     email:    email,
@@ -160,9 +169,9 @@ function handleAPPayment(type, pricePerUnit, ticketType) {
         { display_name: 'Booking Ref', value: ref         }
       ]
     },
-    callback: async function (response) {
+    callback: function (response) {
       // Save to Supabase
-      await saveAPBooking({
+    saveAPBooking({
         full_name:         name,
         email:             email,
         phone:             phone,
