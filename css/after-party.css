@@ -824,3 +824,121 @@
     font-size: 24px;
   }
 }
+/* ── After Party Payment Forms ── */
+.ap-pay-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ap-form-group input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.ap-form-group input:focus {
+  border-color: #5B2D8E;
+  box-shadow: 0 0 0 3px rgba(91,45,142,0.1);
+}
+
+.ap-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F9F5FF;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.ap-qty-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.ap-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ap-qty-controls button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #5B2D8E;
+  background: #fff;
+  color: #5B2D8E;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.ap-qty-controls button:hover {
+  background: #5B2D8E;
+  color: #fff;
+}
+
+.ap-qty-controls span {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: #5B2D8E;
+  min-width: 24px;
+  text-align: center;
+}
+
+.ap-total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F9F5FF;
+  border: 1px solid #E9D5FF;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #5B2D8E;
+}
+
+.ap-pay-btn {
+  background: linear-gradient(135deg, #5B2D8E, #7C3AED);
+  color: #fff;
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(91,45,142,0.3);
+}
+
+.ap-pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(91,45,142,0.4);
+}
+
+.ap-pay-btn.vip {
+  background: linear-gradient(135deg, #F59E0B, #f97316);
+  color: #1F1F2E;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.3);
+}
+
+.ap-pay-btn.vip:hover {
+  box-shadow: 0 8px 24px rgba(245,158,11,0.4);
+}
