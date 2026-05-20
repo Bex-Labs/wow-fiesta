@@ -933,12 +933,3 @@
   box-shadow: 0 8px 24px rgba(91,45,142,0.4);
 }
 
-.ap-pay-btn.vip {
-  background: linear-gradient(135deg, #F59E0B, #f97316);
-  color: #1F1F2E;
-  box-shadow: 0 4px 16px rgba(245,158,11,0.3);
-}
-
-.ap-pay-btn.vip:hover {
-  box-shadow: 0 8px 24px rgba(245,158,11,0.4);
-}
